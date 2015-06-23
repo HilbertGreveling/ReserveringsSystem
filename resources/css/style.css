@@ -1,0 +1,22 @@
+.nojavascript
+{
+    background-color: black;
+    color:red !important;
+    text-align: center;
+    margin-bottom: 0px !important;
+}
+.navmargin
+{
+    margin-bottom: 30px !important;
+}
+.profiledata {
+    margin-bottom: 30px !important;
+}
+
+.line-separator{
+height:1px;
+background:#717171;
+border-bottom:1px solid #313030;
+margin-top:5px;
+margin-bottom: 5px;
+}

@@ -1,30 +1,11 @@
 <?php
-require_once 'core/init.php';
-
-// $user = DB::getInstance()->query("SELECT firstname FROM users WHERE ov = ?", array('1'));
-$user = DB::getInstance()->get('users', array('ov', '=', '1'));
-// var_dump($user);
-if(!$user->count()){
-     echo 'No entry in the database';
-} else {
-   foreach($user->results() as $user) {
-        echo $user->firstname, '<br>';
-   }
-}
- //Perform a action with the executed query or just use this as a error functionality
-
-// $user = DB::getInstance()->get('users', array('ov', '=', '1'));
-
-// if ($user->error()) {
-// 	echo 'No user';
-// } else {
-// 	echo 'ok';
-// }
-
-=======
 // require('core/init.php');
 
 // $user = new User();
+
+// if(!$user->isLoggedIn()){
+//     //redirect
+// }
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +13,10 @@ if(!$user->count()){
 <head>
     <title>TRS - Index</title>
     <link rel="shortcut icon" href="resources/icon/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="resources/materialize/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 </head>
-<body>
+<body class="grey lighten-3">
 
     <noscript>
         <div class="row">
@@ -59,51 +41,46 @@ if(!$user->count()){
         <li class="divider"></li>
         <li><a href="logout.php">Afmelden</a></li>
     </ul>
+
     <!-- Navigation bar -->
     <nav>
         <div class="nav-wrapper blue lighten-1">
-            <a href="index.php" class="brand-logo center" style="margin-left:10px;">TRS</a>
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+            <div class="container">
+                <a href="index.php" class="brand-logo" style="margin-left:10px;">TRS</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#">Reserveren</a></li>
+                    <li><a href="#">Reserveringen</a></li>
 
 
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
 
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#">Reserveren</a></li>
-                <li><a href="#">Reserveringen</a></li>
+                    <li><a href="#">Reserveren</a></li>
+                    <li><a href="#">Reserveringen</a></li>
 
-                <?php
-                if($user->isLoggedIn()) {
-                    echo '<li><a class="dropdown-button" href="#!" data-activates="navdropdown"><i class="mdi-social-person left"></i>' . escape($user->data()->username) .  '<i class="mdi-navigation-arrow-drop-down right"></i></a></li>';
-                } else {
-                    echo '<li><a href="registration.php">Become a Watcher</a></li>
-                        <li><a href="login.php">Login</a></li>';
-                }
-                ?>
-            </ul>
-            <ul class="side-nav" id="mobile-demo">
-
-                <li><a href="#">Reserveren</a></li>
-                <li><a href="#">Reserveringen</a></li>
-
-                <?php
-                if($user->isLoggedIn()) {
-                    echo '<li><a href="profile.php">Profile</a></li>
-                    <li><a href="editprofile.php">Edit Profile</a></li>
-                    <li><a href="logout.php">Logout</a></li>';
-                } else {
-                    echo '<li><a href="registration.php">Become a Watcher</a></li>
-                        <li><a href="login.php">Login</a></li>';
-                }
-                ?>
-            </ul>
+                </ul>
+            </div>
         </div>
         <!-- Navigation bar end -->
     </nav>
 
+    <!-- Genereer reserveringlijst voor gebruikers -->
+    <div class="container">
+        <table>
+            <thead>
+              <tr>
+                  <th data-field="id" class="center">Name</th>
+                  <th data-field="name" class="center">Item Name</th>
+                  <th data-field="price" class="center">Item Price</th>
+              </tr>
+            </thead>
 
-    <script type="text/javascript" src="resources/js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="resources/materialize/js/sideNav.js"></script>
-    <script type="text/javascript" src="resources/materialize/js/dropdown.js"></script>
+        </table>
+    </div>
+    <script type="text/javascript" src="resources/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="resources/js/materialize.min.js"></script>
 
     <script type="text/javascript">
         $(".button-collapse").sideNav();
@@ -113,4 +90,4 @@ if(!$user->count()){
     </script>
 </body>
 </html>
->>>>>>> Michael
+
