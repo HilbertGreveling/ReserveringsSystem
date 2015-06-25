@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php
 // require('core/init.php');
 
@@ -69,14 +69,42 @@
 
     <!-- Genereer reserveringlijst voor gebruikers -->
     <div class="container">
-        <table>
+        <table class="centered">
             <thead>
               <tr>
-                  <th data-field="id" class="center">Name</th>
-                  <th data-field="name" class="center">Item Name</th>
-                  <th data-field="price" class="center">Item Price</th>
+                  <th data-field="workspaceid" class="center">Datum</th>
+                  <th data-field="date" class="center">Tijd</th>
+                  <th data-field="time" class="center">Werkplek</th>
               </tr>
             </thead>
+            <tbody>
+                <tr>
+                    <td>22/03/2015</td>
+                    <td>09:30 - 16:30</td>
+                    <td>130.1</td>
+                </tr>
+                <tr>
+                    <td>22/03/2015</td>
+                    <td>09:30 - 16:30</td>
+                    <td>130.6</td>
+                </tr>
+
+                <tr>
+                    <td>26/03/2015</td>
+                    <td>12:30 - 16:30</td>
+                    <td>222.3</td>
+                </tr>
+                <tr>
+                    <td>21/04/2015</td>
+                    <td>09:30 - 11:45</td>
+                    <td>130.3</td>
+                </tr>
+                <tr>
+                    <td>22/04/2015</td>
+                    <td>09:30 - 16:30</td>
+                    <td>222.1</td>
+                </tr>
+            </tbody>
 
         </table>
     </div>
@@ -91,28 +119,4 @@
     </script>
 </body>
 </html>
-=======
-// <?php
-// require_once 'core/init.php';
-
-// // $user = DB::getInstance()->query("SELECT firstname FROM users WHERE ov = ?", array('1'));
-// $user = DB::getInstance()->get('users', array('ov', '=', '1'));
-// // var_dump($user);
-// if(!$user->count()){
-//      echo 'No entry in the database';
-// } else {
-//    foreach($user->results() as $user) {
-//         echo $user->firstname, '<br>';
-//    }
-// }
-//  //Perform a action with the executed query or just use this as a error functionality
-
-// // $user = DB::getInstance()->get('users', array('ov', '=', '1'));
-
-// // if ($user->error()) {
-// // 	echo 'No user';
-// // } else {
-// // 	echo 'ok';
-// // }
->>>>>>> Hilbert
 
