@@ -14,9 +14,55 @@
 }
 
 .line-separator{
-height:1px;
-background:#717171;
-border-bottom:1px solid #313030;
-margin-top:5px;
-margin-bottom: 5px;
+    height:1px;
+    background:#717171;
+    border-bottom:1px solid #313030;
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+
+.widget-item
+{
+    margin-top: 40px;
+    background-color: white;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+}
+
+.widget-item b
+{
+    text-align: center;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.widget-item .row, .widget-item .input-field, .widget-item .col
+{
+    margin: 0px;
+    padding: 0px;
+}
+
+.widget-item .btn
+{
+    margin: 0px;
+    margin-top:5px;
+    margin-bottom: 15px;
+}
+
+.widget-item a
+{
+    text-align: center;
+}
+
+.forgotpass:hover
+{
+    color:cyan;
+}
+
+.margin-bottom-30
+{
+    margin-bottom:30px;
 }
