@@ -35,80 +35,78 @@
 
 
 
-    <ul id="navdropdown" class="dropdown-content red lighten-4">
-        <li><a href="index.php">Home</a>
-        <li><a href="profile.php">Profiel</a></li>
-        <li><a href="editprofile.php">Bewerk Profiel</a></li>
+    <ul id="navdropdown" class="dropdown-content cyan lighten-3">
+        <li><a href="index.php">Overzicht</a>
+        <li><a href="history.php">Verlopen reserveringen</a></li>
+        <li><a href="profile.php">Bewerk Profiel</a></li>
         <li class="divider"></li>
         <li><a href="logout.php">Afmelden</a></li>
     </ul>
 
     <!-- Navigation bar -->
-    <nav>
-        <div class="nav-wrapper blue lighten-1">
-            <div class="container">
-                <a href="index.php" class="brand-logo" style="margin-left:10px;">TRS</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+    <nav class="navmargin">
+            <div class="nav-wrapper blue lighten-1">
+                <div class="container">
+                    <a href="index.php" class="brand-logo" style="margin-left:10px;">TRS</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Reserveren</a></li>
-                    <li><a href="#">Reserveringen</a></li>
-                    <li><a href="#">Profiel</a></li>
-                </ul>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="reservation.php">Reserveren</a></li>
+                        <li><a href="overview.php">Reserveringen</a></li>
+                        <li><a class="dropdown-button" href="#!" data-activates="navdropdown"><i class="mdi-social-person left"></i>' <!--. escape($user->data()->username) . --> '<i class="mdi-navigation-arrow-drop-down right"></i></a></li>
 
-                <ul class="side-nav" id="mobile-demo">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Reserveren</a></li>
-                    <li><a href="#">Reserveringen</a></li>
-                    <li><a href="#">Profiel</a></li>
-                </ul>
+
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+
+                        <li><a href="reservation.php">Reserveren</a></li>
+                        <li><a href="overview.php">Reserveringen</a></li>
+                        <li><a href="index.php">Overzicht</a>
+                        <li><a href="history.php">Verlopen reserveringen</a></li>
+                        <li><a href="profile.php.php">Bewerk Profiel</a></li>
+                        <li class="divider"></li>
+                        <li><a href="logout.php">Afmelden</a></li>
+
+
+                    </ul>
+                </div>
             </div>
-        </div>
-        <!-- Navigation bar end -->
-    </nav>
+            <!-- Navigation bar end -->
+        </nav>
+
     <div class="container">
         <div class="row">
-            <form class="col s12 m6 offset-m3" autocomplete="off" action="" method="post">
-                <div class="row grey lighten-3 post-index z-depth-2">
-                    <h5 class="flow-text" style="text-align:center;">
-                        Profile
+            <form class="col s12 m8 offset-m2">
+                <div class="grey lighten-4 post-index z-depth-2">
+                    <h5 class="flow-text center" style="text-align:center;">
+                        Reserveren
                         <div class="line-separator red darken-4"></div>
                     </h5>
 
-                    <div class="input-field col s10 offset-s1">
-                        <input id="name" name="name" type="text" class="validate" value="<?php echo escape($user->data()->name); ?>">
-                        <label for="name">Name</label>
-                    </div>
+                        <div class="input-field col s12 m10 offset-m1">
+                            <p>
+                                <input name="group1" class="blue" type="radio" id="1" />
+                                <label for="test1">08:30 - 11:45</label>
+                            </p>
+                            <p>
+                                <input name="group1" class="blue" type="radio" id="2" />
+                                <label for="test1">12:30 - 16:30</label>
+                            </p>
+                            <p>
+                                <input name="group1" class="blue" type="radio" id="3" />
+                                <label for="test1">08:30 - 16:30</label>
+                            </p>
 
-                    <div class="input-field col s10 offset-s1">
-                        <input id="email" name='email' type="email" class="validate" value="<?php echo escape($user->data()->email); ?>">
-                        <label for="email">Email</label>
-                    </div>
 
-                    <div class="input-field col s10 offset-s1">
-                        <input id="location" name="location" type="text" class="validate" value="<?php echo escape($user->data()->location); ?>">
-                        <label for="location">Location</label>
-                    </div>
+                        </div>
+                        <div class="input-field col s12 m10 offset-m1">
+                            <input type="date" placeholder="datepicker" class="datepicker">
+                        </div>
 
-
-                    <div class="input-field col s10 offset-s1">
-                        <textarea id="summary" name="summary" class="materialize-textarea"><?php echo escape($user->data()->summary);?></textarea>
-                        <label for="summary">Summary</label>
-                    </div>
-
-                    <div class="col s10 offset-s1">
-                        <button class="btn waves-effect red waves-light lighten-1 col s6 offset-s3" type="submit">Edit profile<i class="mdi-action-input right"></i></button>
-                        <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-                    </div>
+                    <button class="btn waves-effect blue waves-light right" type="submit">Reserveren</button>
                 </div>
             </form>
         </div>
-
-
-
-<input type="date" class="datepicker">
-
     </div>
     <script type="text/javascript" src="resources/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="resources/js/materialize.min.js"></script>
@@ -119,9 +117,11 @@
         $(".dropdown-button").dropdown();
 
          $('.datepicker').pickadate({
+            disableWeekends: true,
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year
           });
+
     </script>
 </body>
 </html>

@@ -21,6 +21,11 @@
     margin-bottom: 5px;
 }
 
+.divmargin
+{
+    margin-bottom: 30px !important;
+}
+
 .widget-item
 {
     margin-top: 40px;
