@@ -83,7 +83,7 @@
                                         <label for="lastname">Achternaam</label>
                                     </div>
                                     <div class="row">
-                                        <a class="btn waves-effect blue waves-light" href="registration.php" >Gegevens veranderen<i class="mdi-content-send"></i></a>
+                                        <a class="btn waves-effect blue waves-light" href="changepassword.php" >Gegevens veranderen<i class="mdi-content-send"></i></a>
                                     </div>
                                 </div>
                             </form>

@@ -1,4 +1,3 @@
-
 <?php
 // require('core/init.php');
 
@@ -76,34 +75,40 @@
 
     <div class="container">
         <div class="row">
-            <form class="col s12 m8 offset-m2">
-                <div class="grey lighten-4 post-index z-depth-2">
-                    <h5 class="flow-text center" style="text-align:center;">
+            <form class="col s12 m6 offset-m3">
+                <div class="row grey lighten-4 post-index z-depth-2 widget-item">
+                    <h5 class="flow-text center">
                         Reserveren
-                        <div class="line-separator red darken-4"></div>
+                        <div class="line-separator black"></div>
                     </h5>
 
-                        <div class="input-field col s12 m10 offset-m1">
-                            <p>
-                                <input name="group1" class="blue" type="radio" id="1" />
-                                <label for="test1">08:30 - 11:45</label>
-                            </p>
-                            <p>
-                                <input name="group1" class="blue" type="radio" id="2" />
-                                <label for="test1">12:30 - 16:30</label>
-                            </p>
-                            <p>
-                                <input name="group1" class="blue" type="radio" id="3" />
-                                <label for="test1">08:30 - 16:30</label>
-                            </p>
+                    <div class="row">
 
-
-                        </div>
-                        <div class="input-field col s12 m10 offset-m1">
-                            <input type="date" placeholder="datepicker" class="datepicker">
+                        <div class="input-field">
+                            <input type="date" placeholder="Klik hier om een datum te selecteren" class="datepicker input-field">
                         </div>
 
-                    <button class="btn waves-effect blue waves-light right" type="submit">Reserveren</button>
+                        <div class="input-field" style="margin-top:10px !important;">
+                            <select>
+                              <option value="" disabled selected>Kies een tijdsvak</option>
+                              <option value="1">08:30 - 11:45</option>
+                              <option value="2">12:30 - 16:30</option>
+                              <option value="3">08:30 - 16:30</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <select>
+                              <option value="" disabled selected>Lokaal</option>
+                              <option value="1">130.1</option>
+                              <option value="2">130.2</option>
+                              <option value="3">130.3</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field">
+                            <button class="btn waves-effect blue waves-light right" type="submit">Reserveren</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -116,11 +121,25 @@
 
         $(".dropdown-button").dropdown();
 
-         $('.datepicker').pickadate({
-            disableWeekends: true,
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15 // Creates a dropdown of 15 years to control year
+        $(document).ready(function() {
+            $('select').material_select();
           });
+
+         $('.datepicker').pickadate({
+            disable: [
+                1, 7
+              ],
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year
+            monthsFull: [ 'januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december' ],
+            monthsShort: [ 'jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec' ],
+            weekdaysFull: [ 'zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag' ],
+            weekdaysShort: [ 'zo', 'ma', 'di', 'wo', 'do', 'vr', 'za' ],
+            today: 'vandaag',
+            clear: 'Leeg sel.',
+            close: 'sluit'
+          });
+
 
     </script>
 </body>

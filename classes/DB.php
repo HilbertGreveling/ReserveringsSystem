@@ -212,6 +212,4 @@ class DB {
     public function count() {
         return $this->_count;
     }
-
-
-    }
+}

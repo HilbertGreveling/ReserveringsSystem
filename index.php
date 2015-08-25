@@ -121,7 +121,7 @@
                         </tbody>
                     </table>
 
-                        <a class="btn waves-effect blue waves-light col s3 offset-s8" href="registration.php" >Reserveringen</a>
+                        <a class="btn waves-effect blue waves-light col s3 offset-s8" href="reservation.php" >Reserveringen</a>
 
                 </div>
             </div>
