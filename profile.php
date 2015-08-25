@@ -83,7 +83,11 @@
                                         <label for="lastname">Achternaam</label>
                                     </div>
                                     <div class="row">
+<<<<<<< HEAD
                                         <a class="btn waves-effect blue waves-light" href="changepassword.php" >Gegevens veranderen<i class="mdi-content-send"></i></a>
+=======
+                                        <a class="btn waves-effect blue waves-light" href="registration.php" >Gegevens veranderen<i></i></a>
+>>>>>>> c83785281acb20d197d0b737e0b2d7854e471b5b
                                     </div>
                                 </div>
                             </form>
@@ -100,7 +104,7 @@
                             </h5>
                             <h6 class="center">Klik op de knop hieronder om het wachtwoord te veranderen.</h6>
                             <div class="row">
-                                <a class="btn waves-effect blue waves-light m6" href="registration.php" >Wachtwoord veranderen</a>
+                                <a class="btn waves-effect blue waves-light m6" href="changepassword.php" >Wachtwoord veranderen</a>
                             </div>
                     </div>
             </div>
