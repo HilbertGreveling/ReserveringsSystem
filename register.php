@@ -1,52 +1,86 @@
 <?php
-    // TODO LIST
-    //
-    // Redirect after logging in
-    // Javascript alert if logging in failed with some extra functionality
-
-    //------------------------------------------------------------------------------
-    // Requires
-    //------------------------------------------------------------------------------
-    // require_once 'core/init.php';
-    // $user = new User();
+    require_once 'core/init.php';
 
 
-    // /* ------------------------------------------------------------------------------------------------------
-    // /   Check if the user is logged in.
-    // /   If the user is logged in, redirect the user to index.php (user dashboard).
-    // /   If the user isn't logged in redirect the user to the login page.
-    // / ------------------------------------------------------------------------------------------------------ */
-    // if($user->isLoggedIn())
-    // {
-    //     Redirect::to('index.php');
-    // }
-    // elseif(Input::exists()) {
-    //     if(Token::check(Input::get('token'))) {
-    //         $validate = new Validate();
+    /* ------------------------------------------------------------------------------------------------------
+    /   Checks if the values entered in the input fields match the set rules by calling the Validate check()
+    /   method and giving an array with the fields, and an array inside of the array with the rules that
+    /   are being applied to the fields
+    / ------------------------------------------------------------------------------------------------------ */
+    if(Input::exists()) {
+        if(Token::check(Input::get('token'))) {
 
-    //         $validation = $validate->check($_POST, array(
-    //                 'username' => array('required' => true),
-    //                 'password' => array('required' => true)
-    //             ));
+            $validate = new Validate();
+            $validate = $validate->check($_POST, array(
+                'ov' => array(
+                    'required' => true,
+                    'min' => 2,
+                    'max' => 20,
+                ),
+                'password' => array(
+                    'required' => true,
+                    'min' => 2),
+                'passwordRepeat' => array(
+                    'required' => true,
+                    'matches' => 'password'
+                ),
+                'firstname' => array(
+                    'required' => true,
+                    'min' => 2,
+                    'max' => 50
+                ),
+                'lastname' => array(
+                    'required' => true,
+                    'min' => 2,
+                    'max' => 50
+                ),
 
-    //         if($validation->passed()) {
 
-    //             $login = $user->login(Input::get('username'), Input::get('password'));
+            ));
+        /* ------------------------------------------------------------------------------------------------------
+        /   If the validation is a success redirect the user to the main page
+        /   If there occur any errors during the validation process they will be displayed on the screen
+        /   echo all the errors with the use of a foreach loop
+        / ------------------------------------------------------------------------------------------------------ */
+            if($validate->passed()) {
+                $user = new User();
+                $salt = Hash::salt(32);
 
-    //             if($login) {
-    //                 Redirect::to('index.php');
-    //             } else {
-    //                 //failed to login
-    //             }
+                try {
 
-    //         } else {
-    //             foreach($validation->errors() as $error) {
-    //                 echo $error, '<br>';
-    //             }
-    //         }
-    //     }
-    // }
+                    $user->create(array(
+                        'ov' => Input::get('ov'),
+                        'email' => Input::get('email'),
+                        'password' => Hash::make(Input::get('password'), $salt),
+                        'salt' => $salt,
+                        'firstname' => Input::get('firstname'),
+                        'lastname' => Input::get('lastname'),
+                        'group' => 1
+                        ));
+
+                        Session::flash('home', 'U bent succesvol geregistreerd en u kunt nu inloggen. ');
+                        Redirect::to('index.php');
+                }catch(Exception $e) {
+                    die($e->getMessage());
+                }
+            } else {
+                foreach($validate->errors() as $error) {
+                    echo $error . '<br>';
+                }
+            }
+        }
+    }
+
 ?>
+
+<html>
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable = 0">
+        <link rel="shortcut icon" href="resources/icon/favicon.ico">
+        <link href="resources/materialize/css/materialize.css" rel="stylesheet">
+        <link href="resources/css/style.css" rel="stylesheet">
+        <title>Registratie pagina</title>
+</head>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,41 +102,40 @@
 
 
                     <div class="row">
-                        <form class="col s12" method="POST" autocomplete="off" action="">
+                        <form class="col s12" method="POST" action="">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">account_box</i>
+                                    <i class="mdi-action-account-circle prefix"></i>
                                     <input id="ov" name="ov" type="text" class="validate">
-                                    <label for="ov">Ov Nummer</label>
+                                    <label for="ov">Ov-nummer</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">email</i>
-                                    <input id="email" name="email" type="text" class="validate">
-                                    <label for="email">Email</label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">face</i>
+                                    <i class="mdi-action-account-circle prefix"></i>
                                     <input id="firstname" name="firstname" type="text" class="validate">
-                                    <label for="firstname">Voornaam </label>
+                                    <label for="firstname">Voornaam</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">face</i>
+                                    <i class="mdi-action-account-circle prefix"></i>
                                     <input id="lastname" name="lastname" type="text" class="validate">
                                     <label for="lastname">Achternaam</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <i class="mdi-action-https prefix"></i>
-                                    <input id="password" name="password" type="password" class="validate">
-                                    <label for="password">Wachtwoord</label>
+                                    <i class="mdi-content-mail prefix"></i>
+                                    <input id="email" name="email" type="text" class="validate">
+                                    <label for="email">E-mail</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="mdi-action-https prefix"></i>
-                                    <input id="password_again" name="password_again" type="password" class="validate">
-                                    <label for="password_again">Wachtwoord Herhalen</label>
+                                    <input id="password" name="password" type="password" class="validate">
+                                    <label for="password">Password</label>
                                 </div>
-                                <div class="row">
-                                    <a class="btn waves-effect blue waves-light" href="registration.php" >Registreren<i class="mdi-content-send"></i></a>
+                                <div class="input-field col s12">
+                                    <i class="mdi-action-https prefix"></i>
+                                    <input id="passwordrepeat" name="passwordRepeat" type="password" class="validate">
+                                    <label for="passwordrepeat">Repeat password</label>
                                 </div>
+                                <button class="btn waves-effect blue waves-light"  type="submit">Registreren<i class="mdi-action-lock-open right"></i></button>
+                                <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
                             </div>
                         </form>
                     </div>

@@ -17,28 +17,28 @@ class Validate {
                 $item = escape($item);
 
                 if($rule === 'required' && empty($value)) {
-                    $this->addError("{$item} is required");
+                    $this->addError("{$item} is verplicht");
                 } else if(!empty($value)) {
                     switch($rule) {
                         case 'min':
                             if(strlen($value) < $rule_value) {
-                                $this->addError("{$item} must be a minimum of {$rule_value} characters.");
+                                $this->addError("{$item} Moet minimaal {$rule_value} tekens lang zijn.");
                             }
                         break;
                         case 'max':
                             if(strlen($value) > $rule_value) {
-                                $this->addError("{$item} can only be a maximum of {$rule_value} characters.");
+                                $this->addError("{$item} mag maximaal {$rule_value} tekens lang zijn.");
                             }
                         break;
                         case 'matches':
                             if($value != $source[$rule_value]) {
-                                $this->addError("{$rule_value} must match {$item}.");
+                                $this->addError("{$rule_value} Moet gelijk zijn aan {$item}.");
                             }
                         break;
                         case 'unique':
                             $check = $this->_db->get($rule_value, array($item, '=', $value));
                             if($check->count()) {
-                                $this->addError("{$item} already exists.");
+                                $this->addError("{$item} Bestaat al.");
                             }
                         break;
                     }

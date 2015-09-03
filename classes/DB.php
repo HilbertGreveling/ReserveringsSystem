@@ -123,25 +123,24 @@ class DB {
     /   'salt' => 'salt'
     /   ));
     / ------------------------------------------------------------------------------------------------------ */
-    public function insert($table, $fields = array()) {
+     public function insert($table, $fields = array()) {
         if(count($fields)) {
             $keys = array_keys($fields);
             $values = null;
             $x = 1;
-
-            foreach($fields as $field) {
-                $values .= '?';
+            foreach ($fields as $field) {
+                $values .= "?";
                 if($x < count($fields)) {
-                    $values .= ',';
+                    $values .= ', ';
                 }
                 $x++;
             }
-            $sql = "INSERT INTO {$table} (`" . implode('`,`', $keys) . "`) VALUES ({$values})";
-
+            $sql = "INSERT INTO users (`".implode('`, `', $keys)."`) VALUES ({$values})";
             if(!$this->query($sql, $fields)->error()) {
                 return true;
             }
         }
+        return false;
     }
 
     /* ------------------------------------------------------------------------------------------------------

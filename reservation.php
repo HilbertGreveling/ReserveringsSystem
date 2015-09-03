@@ -76,34 +76,30 @@
 
     <div class="container">
         <div class="row">
-            <form class="col s12 m8 offset-m2">
-                <div class="grey lighten-4 post-index z-depth-2">
+            <form class="col s12 m6 offset-m3">
+                <div class="widget-item z-depth-1">
                     <h5 class="flow-text center" style="text-align:center;">
                         Reserveren
                         <div class="line-separator red darken-4"></div>
                     </h5>
-
-                        <div class="input-field col s12 m10 offset-m1">
-                            <p>
-                                <input name="group1" class="blue" type="radio" id="1" />
-                                <label for="test1">08:30 - 11:45</label>
-                            </p>
-                            <p>
-                                <input name="group1" class="blue" type="radio" id="2" />
-                                <label for="test1">12:30 - 16:30</label>
-                            </p>
-                            <p>
-                                <input name="group1" class="blue" type="radio" id="3" />
-                                <label for="test1">08:30 - 16:30</label>
-                            </p>
-
-
-                        </div>
-                        <div class="input-field col s12 m10 offset-m1">
-                            <input type="date" placeholder="datepicker" class="datepicker">
-                        </div>
-
-                    <button class="btn waves-effect blue waves-light right" type="submit">Reserveren</button>
+                    <input type="date" placeholder="datepicker" class="datepicker">
+                    <div class="row">
+                        <p>
+                            <input name="group1" class="blue" type="radio" id="1" />
+                            <label for="test1">08:30 - 11:45</label>
+                        </p>
+                        <p>
+                            <input name="group1" class="blue" type="radio" id="2" />
+                            <label for="test1">12:30 - 16:30</label>
+                        </p>
+                        <p>
+                            <input name="group1" class="blue" type="radio" id="3" />
+                            <label for="test1">08:30 - 16:30</label>
+                        </p>
+                    </div>
+                    <div class="row">
+                        <button class="btn waves-effect blue waves-light right" type="submit">Reserveren</button>
+                    </div>
                 </div>
             </form>
         </div>
