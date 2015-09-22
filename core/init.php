@@ -16,7 +16,7 @@ $GLOBALS['config'] = array(
 
 	),
 	'session' => array(
-		'session_name' => 'ov',
+		'session_name' => 'user',
 		'token_name' => 'token'
 	)
 );
@@ -26,3 +26,4 @@ spl_autoload_register(function($class) {
 });
 
 require_once 'functions/Sanitize.php';
+

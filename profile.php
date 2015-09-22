@@ -63,22 +63,22 @@
                             <form class="col s12" method="POST" autocomplete="off" action="">
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <i class="material-icons prefix">account_box</i>
+                                        <i class="mdi-action-account-circle prefix"></i>
                                         <input disabled value="74676" id="disabled" type="text" class="validate">
-                                        <label for="ov">Ov Nummer</label>
+                                        <label for="username">Ov Nummer</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <i class="material-icons prefix">email</i>
+                                        <i class="mdi-content-mail prefix"></i>
                                         <input disabled value="Jantje123@cursist.novecollege.nl" id="disabled" type="text" class="validate">
                                         <label for="email">Email</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <i class="material-icons prefix">face</i>
+                                         <i class="mdi-action-account-circle prefix"></i>
                                         <input id="firstname" name="firstname" type="text" class="validate">
                                         <label for="firstname">Voornaam </label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <i class="material-icons prefix">face</i>
+                                        <i class="mdi-action-account-circle prefix"></i>
                                         <input id="lastname" name="lastname" type="text" class="validate">
                                         <label for="lastname">Achternaam</label>
                                     </div>

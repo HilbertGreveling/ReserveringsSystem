@@ -1,51 +1,50 @@
 <?php
-    // TODO LIST
-    //
-    // Redirect after logging in
-    // Javascript alert if logging in failed with some extra functionality
 
-    //------------------------------------------------------------------------------
-    // Requires
-    //------------------------------------------------------------------------------
-    // require_once 'core/init.php';
-    // $user = new User();
+require_once 'core/init.php';
 
+if(Input::exists()) {
+    if(Token::check(Input::get('token'))) {
+        $validate = new Validate();
+        $validation = $validate->check($_POST, array(
+            'username' => array('required' => true),
+            'password' => array('required' => true,)
+        ));
+        if($validation->passed()) {
+            $user = new User();
+            $remember = (Input::get('remember') === 'on') ? true : false;
+            $login = $user->login(
+                Input::get('username'),
+                Input::get('password'),
+                $remember
+             );
+            if($login) {
+                // echo 'Success';
+                Redirect::to('index.php');
+            } else {
+                ?>
+                <div class="container">
+                     <div class="row">
+                        <div class="col s12 m4 l4 offset-m4 offset-l4">
+                            <div class="widget-item z-depth-1">
+                                'Ov-nummer en/of wachtwoord is incorrect!'
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    // print "<script type=\"text/javascript\">";
+                    // print "alert('Ov-nummer en/of wachtwoord is incorrect!')";
+                    // print "</script>";
 
-    // /* ------------------------------------------------------------------------------------------------------
-    // /   Check if the user is logged in.
-    // /   If the user is logged in, redirect the user to index.php (user dashboard).
-    // /   If the user isn't logged in redirect the user to the login page.
-    // / ------------------------------------------------------------------------------------------------------ */
-    // if($user->isLoggedIn())
-    // {
-    //     Redirect::to('index.php');
-    // }
-    // elseif(Input::exists()) {
-    //     if(Token::check(Input::get('token'))) {
-    //         $validate = new Validate();
-
-    //         $validation = $validate->check($_POST, array(
-    //                 'username' => array('required' => true),
-    //                 'password' => array('required' => true)
-    //             ));
-
-    //         if($validation->passed()) {
-
-    //             $login = $user->login(Input::get('username'), Input::get('password'));
-
-    //             if($login) {
-    //                 Redirect::to('index.php');
-    //             } else {
-    //                 //failed to login
-    //             }
-
-    //         } else {
-    //             foreach($validation->errors() as $error) {
-    //                 echo $error, '<br>';
-    //             }
-    //         }
-    //     }
-    // }
+            }
+        } else {
+                  $arrayprep = implode( '\n' , $validate->errors());
+                    print "<script type=\"text/javascript\">";
+                    print "alert('$arrayprep')";
+                    print "</script>";
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,7 +69,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="mdi-action-account-circle prefix"></i>
-                                    <input id="ov" name="ov" type="text" class="validate">
+                                    <input id="username" name="username" type="text" class="validate">
                                     <label for="username">Ov Nummer</label>
                                 </div>
                                 <div class="input-field col s12">
@@ -79,6 +78,7 @@
                                     <label for="password">Wachtwoord</label>
                                 </div>
                                 <div class="row">
+                                <input type="hidden" name="token" value="<?php echo Token::generate(); ?>" />
                                     <button class="btn waves-effect green waves-light left" style="width:49%" type="submit">Inloggen<i class="mdi-action-lock-open right"></i></button>
 
                                     <a class="btn waves-effect blue waves-light right" style="width:49%" href="register.php" >Registreren<i class="mdi-content-send right"></i></a>

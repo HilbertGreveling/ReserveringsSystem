@@ -136,6 +136,7 @@ class DB {
                 $x++;
             }
             $sql = "INSERT INTO users (`".implode('`, `', $keys)."`) VALUES ({$values})";
+            var_dump($sql);
             if(!$this->query($sql, $fields)->error()) {
                 return true;
             }

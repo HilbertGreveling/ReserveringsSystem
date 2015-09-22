@@ -1,7 +1,5 @@
 <?php
     require_once 'core/init.php';
-
-
     /* ------------------------------------------------------------------------------------------------------
     /   Checks if the values entered in the input fields match the set rules by calling the Validate check()
     /   method and giving an array with the fields, and an array inside of the array with the rules that
@@ -9,17 +7,19 @@
     / ------------------------------------------------------------------------------------------------------ */
     if(Input::exists()) {
         if(Token::check(Input::get('token'))) {
-
             $validate = new Validate();
             $validate = $validate->check($_POST, array(
-                'ov' => array(
+                'username' => array(
                     'required' => true,
-                    'min' => 2,
+                    'unique' => "users",
+                    'min' => 6,
                     'max' => 20,
                 ),
                 'password' => array(
                     'required' => true,
-                    'min' => 2),
+                    'special' => "users",
+                    'number' => "users",
+                    'min' => 6),
                 'passwordRepeat' => array(
                     'required' => true,
                     'matches' => 'password'
@@ -34,8 +34,6 @@
                     'min' => 2,
                     'max' => 50
                 ),
-
-
             ));
         /* ------------------------------------------------------------------------------------------------------
         /   If the validation is a success redirect the user to the main page
@@ -45,11 +43,9 @@
             if($validate->passed()) {
                 $user = new User();
                 $salt = Hash::salt(32);
-
                 try {
-
                     $user->create(array(
-                        'ov' => Input::get('ov'),
+                        'username' => Input::get('username'),
                         'email' => Input::get('email'),
                         'password' => Hash::make(Input::get('password'), $salt),
                         'salt' => $salt,
@@ -57,20 +53,19 @@
                         'lastname' => Input::get('lastname'),
                         'group' => 1
                         ));
-
                         Session::flash('home', 'U bent succesvol geregistreerd en u kunt nu inloggen. ');
                         Redirect::to('index.php');
                 }catch(Exception $e) {
                     die($e->getMessage());
                 }
             } else {
-                foreach($validate->errors() as $error) {
-                    echo $error . '<br>';
-                }
+                  $arrayprep = implode( '\n' , $validate->errors());
+                    print "<script type=\"text/javascript\">";
+                    print "alert('$arrayprep')";
+                    print "</script>";
             }
         }
     }
-
 ?>
 
 <html>
@@ -106,8 +101,8 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="mdi-action-account-circle prefix"></i>
-                                    <input id="ov" name="ov" type="text" class="validate">
-                                    <label for="ov">Ov-nummer</label>
+                                    <input id="username" name="username" type="text" class="validate">
+                                    <label for="username">Ov-nummer</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="mdi-action-account-circle prefix"></i>

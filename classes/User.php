@@ -25,7 +25,7 @@ class User {
     }
     public function create($fields = array()) {
         if(!$this->_db->insert('users', $fields)) {
-            throw new Exception('Er is een probleem opgetreden bij het aanmaken van uw account.');
+            throw new Exception('There was a problem creating this account.');
         }
     }
     public function update($fields = array(), $id = null) {

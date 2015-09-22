@@ -1,3 +1,50 @@
+<?php
+require_once 'core/init.php';
+
+$user = new User();
+
+if(Input::exists()) {
+    if(Token::check(Input::get('token'))) {
+        // echo 'OK!';
+        $validate = new Validate();
+        $validation = $validate->check($_POST, array(
+            'password' => array(
+                'required' => true,
+                'min' => 6
+            ),
+            'newpassword' => array(
+                'required' => true,
+                'min' => 6
+            ),
+            'newpassword_repeat' => array(
+                'required' => true,
+                'min' => 6,
+                'matches' => 'newpassword'
+            )
+        ));
+        if($validation->passed()) {
+            // change password
+            if(Hash::make(Input::get('password'), $user->data()->salt) !== $user->data()->password) {
+                echo 'Your current password is wrong.';
+            } else {
+                $salt = Hash::salt(32);
+                $user->update(array(
+                    'password' => Hash::make(Input::get('newpassword'), $salt),
+                    'salt' => $salt
+                ));
+                Session::flash('home', 'Your password has been changed!');
+                Redirect::to('index.php');
+            }
+        } else {
+            foreach($validation->errors() as $error) {
+                echo $error, '<br>';
+            }
+        }
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -60,7 +107,7 @@
                             </div>
                         </h4>
                         <div class="row">
-                            <form class="col s12" method="POST" autocomplete="off" action="">
+                            <form class="col s12" method="POST" action="">
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="mdi-action-https prefix"></i>
@@ -79,7 +126,8 @@
                                     </div>
                                     <div class="row">
                                     <div class="row">
-                                        <a class="btn waves-effect blue waves-light" href="registration.php" >Wachtwoord veranderen<i></i></a>
+                                        <button class="btn waves-effect blue waves-light"  type="submit">Wachtwoord veranderen<i class="mdi-action-lock-open right"></i></button>
+                                        <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
                                     </div>
                                     </div>
                                 </div>

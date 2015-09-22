@@ -22,25 +22,36 @@ class Validate {
                     switch($rule) {
                         case 'min':
                             if(strlen($value) < $rule_value) {
-                                $this->addError("{$item} Moet minimaal {$rule_value} tekens lang zijn.");
+                                $this->addError("Het veld {$item} moet minimaal {$rule_value} tekens lang zijn.");
                             }
                         break;
                         case 'max':
                             if(strlen($value) > $rule_value) {
-                                $this->addError("{$item} mag maximaal {$rule_value} tekens lang zijn.");
+                                $this->addError("Het veld {$item} mag maximaal {$rule_value} tekens lang zijn.");
                             }
                         break;
                         case 'matches':
                             if($value != $source[$rule_value]) {
-                                $this->addError("{$rule_value} Moet gelijk zijn aan {$item}.");
+                                $this->addError("{$rule_value} moet gelijk zijn aan {$item}.");
                             }
                         break;
                         case 'unique':
-                            $check = $this->_db->get($rule_value, array($item, '=', $value));
-                            if($check->count()) {
-                                $this->addError("{$item} Bestaat al.");
+                            $this->_db->get($rule_value, array($item, '=', $value));
+                            if($this->_db->count() > 0) {
+                            $this->addError("Uw {$item} is already in use");
+                           }
+                          break;
+                          case 'save':
+                            if(!preg_match('/\A(?=[\x20-\x7E]*?[A-Z])(?=[\x20-\x7E]*?[a-z])(?=[\x20-\x7E]*?[0-9])[\x20-\x7E]{6,}\z/', $value))
+                            {
+                                $this->addError("Uw {$item} moet uit een speciaal karakter en uit een nummer bestaan");
                             }
-                        break;
+                            case 'number':
+                            {
+                                if(!is_numeric($value)){
+
+                                }
+                            }
                     }
                 }
 
