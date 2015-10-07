@@ -18,7 +18,7 @@ if(Input::exists()) {
                 $remember
              );
             if($login) {
-                // echo 'Success';
+                echo 'Success';
                 Redirect::to('index.php');
             } else {
                 ?>
@@ -37,13 +37,8 @@ if(Input::exists()) {
                     // print "</script>";
 
             }
-        } else {
-                  $arrayprep = implode( '\n' , $validate->errors());
-                    print "<script type=\"text/javascript\">";
-                    print "alert('$arrayprep')";
-                    print "</script>";
-        }
     }
+}
 }
 ?>
 <!DOCTYPE html>

@@ -1,12 +1,11 @@
-
 <?php
-// require('core/init.php');
+require('core/init.php');
 
-// $user = new User();
+$user = new User();
 
-// if(!$user->isLoggedIn()){
-//     //redirect
-// }
+if(!$user->isLoggedIn()){
+    Redirect::to( 'login.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,8 +33,6 @@
         </div>
     </noscript>
 
-
-
     <ul id="navdropdown" class="dropdown-content cyan lighten-3">
         <li><a href="index.php">Overzicht</a>
         <li><a href="history.php">Verlopen reserveringen</a></li>
@@ -54,7 +51,7 @@
                     <ul class="right hide-on-med-and-down">
                         <li><a href="reservation.php">Reserveren</a></li>
                         <li><a href="overview.php">Reserveringen</a></li>
-                        <li><a class="dropdown-button" href="#!" data-activates="navdropdown"><i class="mdi-social-person left"></i>' <!--. escape($user->data()->username) . --> '<i class="mdi-navigation-arrow-drop-down right"></i></a></li>
+                        <li><a class="dropdown-button" href="#!" data-activates="navdropdown"><i class="mdi-social-person left"></i><?php echo escape($user->data()->firstname ); ?><i class="mdi-navigation-arrow-drop-down right"></i></a></li>
 
 
                     </ul>

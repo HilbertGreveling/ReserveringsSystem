@@ -3,6 +3,10 @@ require_once 'core/init.php';
 
 $user = new User();
 
+if(!$user->isLoggedIn()){
+    Redirect::to( 'login.php');
+}
+
 if(Input::exists()) {
     if(Token::check(Input::get('token'))) {
         // echo 'OK!';
@@ -43,8 +47,6 @@ if(Input::exists()) {
     }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -75,7 +77,7 @@ if(Input::exists()) {
                     <ul class="right hide-on-med-and-down">
                         <li><a href="reservation.php">Reserveren</a></li>
                         <li><a href="overview.php">Reserveringen</a></li>
-                        <li><a class="dropdown-button" href="#!" data-activates="navdropdown"><i class="mdi-social-person left"></i>' <!--. escape($user->data()->username) . --> '<i class="mdi-navigation-arrow-drop-down right"></i></a></li>
+                        <li><a class="dropdown-button" href="#!" data-activates="navdropdown"><i class="mdi-social-person left"></i><?php echo escape($user->data()->firstname ); ?><i class="mdi-navigation-arrow-drop-down right"></i></a></li>
 
 
                     </ul>

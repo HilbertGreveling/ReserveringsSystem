@@ -1,3 +1,45 @@
+<?php
+require_once 'core/init.php';
+
+$user = new User();
+
+if(!$user->isLoggedIn()){
+    Redirect::to( 'login.php');
+}
+// flash a message if exists //
+if(Session::exists('home')) {
+    echo '<p>'.Session::flash('home').'</p>';
+}
+
+if(Input::exists()) {
+    if(Token::check(Input::get('token'))) {
+        $validate = new Validate();
+        $validation = $validate->check($_POST, array(
+            'firstname' => array(
+                'required' => true,
+                'min' => 2,
+                'max' => 50
+            )
+        ));
+        if($validation->passed()) {
+            try {
+                $user->update(array(
+                    'firstname' => Input::get('firstname'),
+                    'lastname' => Input::get('lastname'),
+                ));
+                    Redirect::to('profile.php');
+            }catch(Exception $e) {
+                die($e->getMessage());
+            }
+        }
+        else {
+            foreach($validation->errors() as $error) {
+                echo $error, '<br>';
+            }
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,6 +53,7 @@
     <body class="grey lighten-3">
 
         <ul id="navdropdown" class="dropdown-content cyan lighten-3">
+        <li><a href="#"><i class="mdi-social-person left"></i><?php echo escape($user->data()->username); ?></a></li>
             <li><a href="index.php">Overzicht</a>
             <li><a href="history.php">Verlopen reserveringen</a></li>
             <li><a href="profile.php">Bewerk Profiel</a></li>
@@ -28,7 +71,7 @@
                     <ul class="right hide-on-med-and-down">
                         <li><a href="reservation.php">Reserveren</a></li>
                         <li><a href="overview.php">Reserveringen</a></li>
-                        <li><a class="dropdown-button" href="#!" data-activates="navdropdown"><i class="mdi-social-person left"></i>' <!--. escape($user->data()->username) . --> '<i class="mdi-navigation-arrow-drop-down right"></i></a></li>
+                        <li><a class="dropdown-button" href="profile.php?user=<?php echo escape($user->data()->firstname); ?>" data-activates="navdropdown"><i class="mdi-social-person left"></i><?php echo escape($user->data()->firstname ); ?><i class="mdi-navigation-arrow-drop-down right"></i></a></li>
 
 
                     </ul>
@@ -64,26 +107,27 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="mdi-action-account-circle prefix"></i>
-                                        <input disabled value="74676" id="disabled" type="text" class="validate">
+                                        <input disabled value="<?php echo escape($user->data()->username); ?>" id="disabled" type="text" class="validate">
                                         <label for="username">Ov Nummer</label>
                                     </div>
                                     <div class="input-field col s12">
                                         <i class="mdi-content-mail prefix"></i>
-                                        <input disabled value="Jantje123@cursist.novecollege.nl" id="disabled" type="text" class="validate">
+                                        <input disabled value="<?php echo escape($user->data()->email); ?>" id="disabled" type="text" class="validate">
                                         <label for="email">Email</label>
                                     </div>
                                     <div class="input-field col s12">
                                          <i class="mdi-action-account-circle prefix"></i>
-                                        <input id="firstname" name="firstname" type="text" class="validate">
+                                        <input value="<?php echo escape($user->data()->firstname); ?>" id="firstname" name="firstname" type="text" class="validate">
                                         <label for="firstname">Voornaam </label>
                                     </div>
                                     <div class="input-field col s12">
                                         <i class="mdi-action-account-circle prefix"></i>
-                                        <input id="lastname" name="lastname" type="text" class="validate">
+                                        <input value="<?php echo escape($user->data()->lastname); ?>" id="lastname" name="lastname" type="text" class="validate">
                                         <label for="lastname">Achternaam</label>
                                     </div>
                                     <div class="row">
-                                        <a class="btn waves-effect blue waves-light" href="registration.php" >Gegevens veranderen<i></i></a>
+                                        <button class="btn waves-effect blue waves-light"  type="submit">Gegevens veranderen</button>
+                                        <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
                                     </div>
                                 </div>
                             </form>
@@ -109,3 +153,4 @@
         <script type="text/javascript" src="resources/js/materialize.min.js"></script>
     </body>
 </html>
+

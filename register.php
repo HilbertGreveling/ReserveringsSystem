@@ -97,7 +97,7 @@
 
 
                     <div class="row">
-                        <form class="col s12" method="POST" action="">
+                        <form class="col s12" method="POST" autocomplete="off" action="">
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="mdi-action-account-circle prefix"></i>
