@@ -18,7 +18,6 @@ if(Input::exists()) {
                 $remember
              );
             if($login) {
-                echo 'Success';
                 Redirect::to('index.php');
             } else {
                 ?>
@@ -26,19 +25,15 @@ if(Input::exists()) {
                      <div class="row">
                         <div class="col s12 m4 l4 offset-m4 offset-l4">
                             <div class="widget-item z-depth-1">
-                                'Ov-nummer en/of wachtwoord is incorrect!'
+                                Ov-nummer en/of wachtwoord is incorrect!
                                 </div>
                             </div>
                         </div>
                     </div>
                     <?php
-                    // print "<script type=\"text/javascript\">";
-                    // print "alert('Ov-nummer en/of wachtwoord is incorrect!')";
-                    // print "</script>";
-
             }
+        }
     }
-}
 }
 ?>
 <!DOCTYPE html>

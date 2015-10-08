@@ -17,11 +17,9 @@
                 ),
                 'password' => array(
                     'required' => true,
-                    'special' => "users",
                     'number' => "users",
                     'min' => 6),
                 'passwordRepeat' => array(
-                    'required' => true,
                     'matches' => 'password'
                 ),
                 'firstname' => array(
@@ -58,12 +56,30 @@
                 }catch(Exception $e) {
                     die($e->getMessage());
                 }
-            } else {
-                  $arrayprep = implode( '\n' , $validate->errors());
-                    print "<script type=\"text/javascript\">";
-                    print "alert('$arrayprep')";
-                    print "</script>";
+             } else {
+                 $arrayprep = implode( '</br>' , $validate->errors());
+                ?>
+                <div class="container">
+                     <div class="row">
+                        <div class="col s12 m4 l4 offset-m4 offset-l4">
+                            <div class="widget-item z-depth-1">
+                                <?php print $arrayprep; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    // print "<script type=\"text/javascript\">";
+                    // print "alert('Ov-nummer en/of wachtwoord is incorrect!')";
+                    // print "</script>";
+
             }
+            // } else {
+            //       $arrayprep = implode( '\n' , $validate->errors());
+            //         print "<script type=\"text/javascript\">";
+            //         print "alert('$arrayprep')";
+            //         print "</script>";
+            // }
         }
     }
 ?>
