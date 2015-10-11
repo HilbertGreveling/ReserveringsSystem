@@ -37,7 +37,7 @@ if(Input::exists()) {
                     'salt' => $salt
                 ));
                 Session::flash('home', 'Your password has been changed!');
-                Redirect::to('index.php');
+                Redirect::to('profile.php');
             }
         } else {
             foreach($validation->errors() as $error) {

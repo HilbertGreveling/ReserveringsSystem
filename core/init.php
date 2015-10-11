@@ -8,7 +8,7 @@ $GLOBALS['config'] = array(
 		'host' => '127.0.0.1',
 		'username' => 'root',
 		'password' => '',
-		'db' => 'reserveringssysteem',
+		'db' => 'reserveringsysteem',
 	),
 	'remember' => array(
 		'cookie_name' => 'hash',

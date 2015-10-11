@@ -9,6 +9,7 @@ class User {
         $this->_db = DB::getInstance();
         $this->_sessionName = Config::get('session/session_name');
         $this->_cookieName = Config::get('remember/cookie_name');
+
         if(!$user) {
             if(Session::exists($this->_sessionName)) {
                 $user = Session::get($this->_sessionName);
@@ -48,11 +49,12 @@ class User {
         }
         return false;
     }
+
     public function login($username = null, $password = null, $remember = false) {
 
         // print_r($this->_data);
         // check if username has been defined
-        if(!$username && !$password && $this->exists()) {
+        if($username && $password && $this->exists()) {
             Session::put($this->_sessionName, $this->data()->id);
         }else {
             $user = $this->find($username);
@@ -78,27 +80,32 @@ class User {
         }
         return false;
     }
+
     public function hasPermission($key) {
-        $group = $this->_db->get('groups', array('id', '=', $this->data()->group));
+    $group = $this->_db->get('groups', array('id', '=', $this->data()->group));
         if($group->count()) {
             $permissions = json_decode($group->first()->permissions, true);
+
             if($permissions[$key] == true) {
                 return true;
             }
         }
-        return false;
     }
+
     public function exists() {
         return (!empty($this->_data)) ? true : false;
     }
+
     public function logout() {
         $this->_db->delete('user_session', array('user_id', '=', $this->data()->id));
         Session::delete($this->_sessionName);
         Cookie::delete($this->_cookieName);
     }
+
     public function data() {
         return $this->_data;
     }
+
     public function isLoggedIn() {
         return $this->_isLoggedIn;
     }

@@ -1,49 +1,49 @@
 <?php
 
-require_once 'core/init.php';
+    require_once 'core/init.php';
 
-if(Input::exists()) {
-    if(Token::check(Input::get('token'))) {
-        $validate = new Validate();
-        $validation = $validate->check($_POST, array(
-            'username' => array('required' => true),
-            'password' => array('required' => true,)
-        ));
-        if($validation->passed()) {
-            $user = new User();
-            $remember = (Input::get('remember') === 'on') ? true : false;
-            $login = $user->login(
-                Input::get('username'),
-                Input::get('password'),
-                $remember
-             );
-            if($login) {
-                Redirect::to('index.php');
-            } else {
-                ?>
-                <div class="container">
-                     <div class="row">
-                        <div class="col s12 m4 l4 offset-m4 offset-l4">
-                            <div class="widget-item z-depth-1">
-                                Ov-nummer en/of wachtwoord is incorrect!
+    if(Input::exists()) {
+        if(Token::check(Input::get('token'))) {
+            $validate = new Validate();
+            $validation = $validate->check($_POST, array(
+                'username' => array('required' => true),
+                'password' => array('required' => true,)
+            ));
+            if($validation->passed()) {
+                $user = new User();
+                $remember = Input::get('remember') === 'on' ? true : false;
+                $login = $user->login(
+                    Input::get('username'),
+                    Input::get('password'),
+                    $remember
+                 );
+                if($login) {
+                    Redirect::to('index.php');
+                } else {
+                    ?>
+                    <div class="container">
+                         <div class="row">
+                            <div class="col s12 m4 l4 offset-m4 offset-l4">
+                                <div class="widget-item z-depth-1">
+                                    Ov-nummer en/of wachtwoord is incorrect!
                                 </div>
                             </div>
                         </div>
                     </div>
                     <?php
+                }
             }
         }
     }
-}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable = 0">
-        <link rel="shortcut icon" href="resources/icon/favicon.ico">
-        <link href="resources/css/materialize.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-        <title>Reserveringssyteem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable = 0">
+    <link rel="shortcut icon" href="resources/icon/favicon.ico">
+    <link href="resources/css/materialize.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+    <title>Reserveringssyteem</title>
 </head>
 <body class="grey lighten-3">
 

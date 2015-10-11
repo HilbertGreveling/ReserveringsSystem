@@ -23,9 +23,10 @@ if(!$user->isLoggedIn()){
             <div class="col s12 m12">
                 <div class="card blue-grey darken-1">
                     <div class="card-content white-text nojavascript">
-                    <span class="card-title nojavascript">PLEASE ENABLE JAVASCRIPT</span>
-                    <p>This website <strong>needs</strong> JavaScript!
-                    The website loses 90% of its functionality without JavaScript being enabled.</p>
+                    <span class="card-title nojavascript">Deze website werkt niet zonder javascript</span>
+                    <p>
+                        Klik op deze link om te leren hoe je  <a href="https://support.google.com/adsense/answer/12654?hl=nl">Javascript aan kan zetten</a>
+                    </p>
                     </div>
                 </div>
             </div>
