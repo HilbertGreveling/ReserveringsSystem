@@ -85,15 +85,15 @@ if(!$user->isLoggedIn()){
                     <div class="row">
                         <p>
                             <input name="group1" class="blue" type="radio" id="1" />
-                            <label for="test1">08:30 - 11:45</label>
+                            <label for="1">08:30 - 11:45</label>
                         </p>
                         <p>
                             <input name="group1" class="blue" type="radio" id="2" />
-                            <label for="test1">12:30 - 16:30</label>
+                            <label for="2">12:30 - 16:30</label>
                         </p>
                         <p>
                             <input name="group1" class="blue" type="radio" id="3" />
-                            <label for="test1">08:30 - 16:30</label>
+                            <label for="3">08:30 - 16:30</label>
                         </p>
                     </div>
                     <div class="row">

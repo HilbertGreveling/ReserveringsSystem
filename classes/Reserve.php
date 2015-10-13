@@ -8,6 +8,6 @@ class Reserve {
     }
 
     public function fetch($code = null) {
-        }
+
     }
 
