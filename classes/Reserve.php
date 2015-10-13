@@ -1,4 +1,9 @@
 <?php
+/*
+    Functies
+        checkReservation
+        getReservations
+ */
 class Reserve {
     private $_db,
             $_data;

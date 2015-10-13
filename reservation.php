@@ -1,4 +1,12 @@
 <?php
+/*
+    Workplace DB vullen met de tafelgroepen
+
+    Inserten reservering
+        - Eerst controleren of er op de aangegeven datum/tijd een werkplek beschikbaar is. d.m.v. een query
+        - Tijd id 1/2 aangegeven in reserveringsform 1 query uitvoeren, als tijd id 3 is aangegeven in reserveringsform 2 queries uitvoeren voor tijdid 1/2
+        - Reserveringen in database inserten d.m.v. query
+ */
 require('core/init.php');
 
 $user = new User();
