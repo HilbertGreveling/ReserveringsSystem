@@ -1,4 +1,8 @@
 <?php
+/*
+    Query om reserveringen op te halen reserveringen voor huidige datum
+    Optie om verlopen reserveringen te verwijderen / alle verlopen reserveringen te verwijderen?
+ */
 require('core/init.php');
 
 $user = new User();

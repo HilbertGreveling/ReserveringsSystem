@@ -85,12 +85,14 @@ if(!$user->isLoggedIn()){
         <div class="row">
             <form class="col s12 m6 offset-m3">
                 <div class="widget-item z-depth-1">
-                    <h5 class="flow-text center" style="text-align:center;">
+                    <h6 class="flow-text center">
                         Reserveren
                         <div class="line-separator red darken-4"></div>
-                    </h5>
-                    <input type="date" placeholder="datepicker" class="datepicker">
+                    </h6>
+                    <input type="date" placeholder="Klik hier om een datum te selecteren" class="datepicker">
+                    <p>Selecteer het gewenste tijdsvenster:</p>
                     <div class="row">
+
                         <p>
                             <input name="group1" class="blue" type="radio" id="1" />
                             <label for="1">08:30 - 11:45</label>

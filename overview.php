@@ -1,4 +1,7 @@
 <?php
+/*
+    Alle staande reserveringen ophalen + optie om reserveringen te verwijderen uit de database.
+ */
 require('core/init.php');
 
 $user = new User();

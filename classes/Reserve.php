@@ -3,6 +3,9 @@
     Functies
         checkReservation
         getReservations
+        createReservation
+        deleteReservation
+        deleteAllExpReservations
  */
 class Reserve {
     private $_db,

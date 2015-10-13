@@ -1,4 +1,7 @@
 <?php
+/*
+    Query komende 5 reserveringen ophalen
+ */
 require('core/init.php');
 
 $user = new User();
