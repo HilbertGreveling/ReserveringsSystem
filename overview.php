@@ -64,7 +64,7 @@ if(!$user->isLoggedIn()){
                         <li><a href="overview.php">Reserveringen</a></li>
                         <li><a href="index.php">Overzicht</a>
                         <li><a href="history.php">Verlopen reserveringen</a></li>
-                        <li><a href="profile.php.php">Bewerk Profiel</a></li>
+                        <li><a href="profile.php">Bewerk Profiel</a></li>
                         <li class="divider"></li>
                         <li><a href="logout.php">Afmelden</a></li>
 

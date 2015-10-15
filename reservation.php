@@ -70,7 +70,7 @@ if(!$user->isLoggedIn()){
                         <li><a href="overview.php">Reserveringen</a></li>
                         <li><a href="index.php">Overzicht</a>
                         <li><a href="history.php">Verlopen reserveringen</a></li>
-                        <li><a href="profile.php.php">Bewerk Profiel</a></li>
+                        <li><a href="profile.php">Bewerk Profiel</a></li>
                         <li class="divider"></li>
                         <li><a href="logout.php">Afmelden</a></li>
 
@@ -87,8 +87,7 @@ if(!$user->isLoggedIn()){
                 <div class="widget-item z-depth-1">
                     <h6 class="flow-text center">
                         Reserveren
-                        <div class="line-separator red darken-4"></div>
-                    </h6>
+                        <div class="line-separator red darken-4"></div>           </h6>
                     <input type="date" placeholder="Klik hier om een datum te selecteren" class="datepicker">
                     <p>Selecteer het gewenste tijdsvenster:</p>
                     <div class="row">

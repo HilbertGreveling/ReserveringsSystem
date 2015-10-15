@@ -1,5 +1,6 @@
 <?php
-/*
+class Reserve {
+    /*
     Functies
         checkReservation
         getReservations
@@ -7,11 +8,10 @@
         deleteReservation
         deleteAllExpReservations
  */
-class Reserve {
     private $_db,
             $_data;
 
-    public function __construct($user = null){
+    public function __construct($user = null) {
         $this->_db = DB::getInstance();
     }
 
@@ -19,3 +19,22 @@ class Reserve {
 
     }
 
+    public function check($date = null, $time = null) {
+
+    }
+
+    public function delete($id = null) {
+
+    }
+
+    public function create() {
+
+    }
+
+    public function deleteAllExp($user = null) {
+
+    }
+
+    public function data() {
+        return $this->_data;
+    }
