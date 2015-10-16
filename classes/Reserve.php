@@ -9,7 +9,8 @@ class Reserve {
         deleteAllExpReservations
  */
     private $_db,
-            $_data;
+            $_data,
+            $_sessionName;
 
     public function __construct($user = null) {
         $this->_db = DB::getInstance();
@@ -27,12 +28,20 @@ class Reserve {
 
     }
 
-    public function create() {
+    public function create($fields = array(), $id = null) {
+        if (!$id && User::isLoggedIn()) {
+            $id = $this->data()->id;
+        }
+        if(!$_db->insert('reservations', $id, $fields)){
+            throw new Exception("There was a problem making this reservation");
 
+        }
     }
 
-    public function deleteAllExp($user = null) {
+    public function deleteAllExp() {
+        /*
 
+        */
     }
 
     public function data() {

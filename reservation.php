@@ -26,8 +26,10 @@
                     'required' => true
                 )
             ));
+            if($validation->passed($validate)){
+                
+            }
         }
-
     }
 ?>
 

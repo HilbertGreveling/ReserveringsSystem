@@ -152,7 +152,7 @@ if(Input::exists()) {
         <script type="text/javascript" src="resources/js/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="resources/js/materialize.min.js"></script>
         <script type="text/javascript">
-          $(".button-collapse").sideNav();
+            $(".button-collapse").sideNav();
         </script>
     </body>
 </html>
