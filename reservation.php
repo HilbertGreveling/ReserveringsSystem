@@ -6,28 +6,41 @@
             - Eerst controleren of er op de aangegeven datum/tijd een werkplek beschikbaar is. d.m.v. een query
             - Tijd id 1/2 aangegeven in reserveringsform 1 query uitvoeren, als tijd id 3 is aangegeven in reserveringsform 2 queries uitvoeren voor tijdid 1/2
             - Reserveringen in database inserten d.m.v. query
+
+            20/10 fix verification of input
      */
     require('core/init.php');
 
     $user = new User();
+    $reserve = new Reserve();
 
     if(!$user->isLoggedIn()){
         Redirect::to( 'login.php');
     }
-
     if(Input::exists()) {
         if(Token::check(Input::get('token'))){
+
             $validate = new Validate();
-            $valdidate = $validate->check($_POST, array(
-                'date' => array(
-                    'required' => true
-                ),
-                'time' => array(
-                    'required' => true
-                )
+
+            $validation = $validate->check($_POST, array(
+                'date' => array('required' => true),
+                'time' => array('required' => true)
             ));
-            if($validation->passed($validate)){
-                
+            if($validation->passed($validate)){ // Check if the selected date is available, if false return error message
+
+                try {
+                $reservation = $reserve->create(
+                    array(
+                        'ov' => $user->data()->id,
+                        'workplace_id' => 1,
+                        'date' => Input::get('date'),
+                        'time_id' => Input::get('time')
+                    ));
+                }catch(Exception $e) {
+                    die($e->getMessage());
+                }
+            } else {
+                echo "Thats not the magic number";
             }
         }
     }
@@ -100,31 +113,47 @@
 
     <div class="container">
         <div class="row">
-            <form class="col s12 m6 offset-m3">
+            <form class="col s12 m6 offset-m3" method="post" action="">
                 <div class="widget-item z-depth-1">
                     <h6 class="flow-text center">
                         Reserveren
-                        <div class="line-separator red darken-4"></div>           </h6>
-                    <input name="date" type="date" placeholder="Klik hier om een datum te selecteren" class="datepicker">
-                    <p>Selecteer het gewenste tijdsvenster:</p>
+                        <div class="line-separator red darken-4"></div>
+                    </h6>
+
                     <div class="row">
 
-                        <p>
+                        <input name="date" type="date" placeholder="Klik hier om een datum te selecteren" class="datepicker input-field">
+
+                        <div class="input-field col s12">
+                            <select name="time">
+                              <option value="1" selected>Selecteer het gewenste tijdsvenster</option>
+                              <option value="1">08:30 - 11:45</option>
+                              <option value="2">12:30 - 16:30</option>
+                              <option value="3">08:30 - 16:30</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="row">
+                        <input name="date" type="date" placeholder="Klik hier om een datum te selecteren" class="datepicker input-field">
+                        <p>Selecteer het gewenste tijdsvenster:</p>
+
+                        <p class="input-field">
                             <input name="time" class="blue" type="radio" id="1" />
                             <label for="1">08:30 - 11:45</label>
                         </p>
-                        <p>
+                        <p class="input-field">
                             <input name="time" class="blue" type="radio" id="2" />
                             <label for="2">12:30 - 16:30</label>
                         </p>
-                        <p>
+                        <p class="input-field">
                             <input name="time" class="blue" type="radio" id="3" />
                             <label for="3">08:30 - 16:30</label>
                         </p>
-                    </div>
+                    </div> -->
                     <div class="row">
+                        <input type="hidden" name="token" value="<?php echo Token::generate(); ?>" />
                         <button class="btn waves-effect blue waves-light right" type="submit">Reserveren</button>
-                        <input type="hidden" name="token" value="<?php echo Token::generate();?>">
                     </div>
                 </div>
             </form>
@@ -139,11 +168,15 @@
         $(".dropdown-button").dropdown();
 
          $('.datepicker').pickadate({
+            format: 'yyyy-mm-dd',
             disableWeekends: true,
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year
           });
 
+          $(document).ready(function() {
+            $('select').material_select();
+          });
     </script>
 </body>
 </html>

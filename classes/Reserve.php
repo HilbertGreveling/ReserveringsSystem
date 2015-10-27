@@ -6,13 +6,13 @@ class Reserve {
         getReservations
         createReservation
         deleteReservation
-        deleteAllExpReservations
+        deleteAllExp
  */
     private $_db,
             $_data,
             $_sessionName;
 
-    public function __construct($user = null) {
+    public function __construct() {
         $this->_db = DB::getInstance();
     }
 
@@ -28,13 +28,10 @@ class Reserve {
 
     }
 
-    public function create($fields = array(), $id = null) {
-        if (!$id && User::isLoggedIn()) {
-            $id = $this->data()->id;
-        }
-        if(!$_db->insert('reservations', $id, $fields)){
-            throw new Exception("There was a problem making this reservation");
+    public function create($fields = array()) {
 
+        if(!$this->_db->insert('reservations', $fields)){
+            throw new Exception("There was a problem making this reservation");
         }
     }
 
@@ -47,3 +44,4 @@ class Reserve {
     public function data() {
         return $this->_data;
     }
+}

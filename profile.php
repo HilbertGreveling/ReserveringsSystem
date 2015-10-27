@@ -25,7 +25,7 @@ if(Input::exists()) {
             try {
                 $user->update(array(
                     'firstname' => Input::get('firstname'),
-                    'lastname' => Input::get('lastname'),
+                    'lastname' => Input::get('lastname')
                 ));
                     Redirect::to('profile.php');
             }catch(Exception $e) {
