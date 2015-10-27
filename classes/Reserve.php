@@ -17,6 +17,12 @@ class Reserve {
     }
 
     public function fetch($code = null) {
+        $fetch = $this->_db->get('reservations', array('ov', '=', $code), 'ORDER BY DATE');
+        if(!$fetch){
+            throw new Exception("There was a problem making this reservation");
+        } else {
+            return $fetch->results();
+        }
 
     }
 
@@ -28,8 +34,12 @@ class Reserve {
 
     }
 
+    /**
+     * [create]
+     * @param  array  $fields [description]
+     * @return [type]         [description]
+     */
     public function create($fields = array()) {
-
         if(!$this->_db->insert('reservations', $fields)){
             throw new Exception("There was a problem making this reservation");
         }

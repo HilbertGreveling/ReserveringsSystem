@@ -133,24 +133,7 @@
                             </select>
                         </div>
                     </div>
-                    <!--
-                    <div class="row">
-                        <input name="date" type="date" placeholder="Klik hier om een datum te selecteren" class="datepicker input-field">
-                        <p>Selecteer het gewenste tijdsvenster:</p>
 
-                        <p class="input-field">
-                            <input name="time" class="blue" type="radio" id="1" />
-                            <label for="1">08:30 - 11:45</label>
-                        </p>
-                        <p class="input-field">
-                            <input name="time" class="blue" type="radio" id="2" />
-                            <label for="2">12:30 - 16:30</label>
-                        </p>
-                        <p class="input-field">
-                            <input name="time" class="blue" type="radio" id="3" />
-                            <label for="3">08:30 - 16:30</label>
-                        </p>
-                    </div> -->
                     <div class="row">
                         <input type="hidden" name="token" value="<?php echo Token::generate(); ?>" />
                         <button class="btn waves-effect blue waves-light right" type="submit">Reserveren</button>

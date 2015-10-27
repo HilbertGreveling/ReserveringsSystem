@@ -20,7 +20,8 @@ class DB {
     / ------------------------------------------------------------------------------------------------------ */
     private function __construct() {
         try{
-            $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') .';dbname=' . Config::get('mysql/db'), Config::get('mysql/username'), Config::get('mysql/password'));
+            $this->_pdo = new PDO('mysql:host=' . Config::get('mysql/host') .';dbname=' . Config::get('mysql/db'),
+            Config::get('mysql/username'), Config::get('mysql/password'));
         } catch(PDOException $e) {
             die($e->getMessage());
         }
@@ -76,7 +77,7 @@ class DB {
     /   Fills and prepares the query and then executes the query with the the query() method
     / ------------------------------------------------------------------------------------------------------ */
 
-        public function action($action, $table, $where = array()) {
+        public function action($action, $table, $where = array(), $order = null) {
         if(count($where) === 3) {
             $operators = array('=', '>', '<', '>=', '<=');
 
@@ -85,7 +86,7 @@ class DB {
             $value      = $where[2];
 
             if(in_array($operator, $operators)) {
-                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
+                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ? {$order}";
                 if(!$this->query($sql, array($value))->error()) {
                     return $this;
                 }
@@ -100,15 +101,15 @@ class DB {
     /
     /   $user = DB::getInstance()->get('users', array('username', '=', 'henk'));
     / ------------------------------------------------------------------------------------------------------ */
-    public function get($table, $where) {
-        return $this->action('SELECT *', $table, $where);
+    public function get($table, $where, $order = null) {
+        return $this->action('SELECT *', $table, $where, $order);
     }
 
     /* ------------------------------------------------------------------------------------------------------
     /   Deleting data from the database by calling the action() method and setting the
     /   $action parameter of the action() method to DELETE *
     /
-    /   $deleteuser = DB::getInstance()->delete('users', array('username', '=', 'henk'))
+    /   $deleteuser = DB::getInstance()->delete('users', array('username', '=', 'henk'), ORDER BY MEMES)
     / ------------------------------------------------------------------------------------------------------ */
     public function delete($table, $where) {
         return$this->action('DELETE *', $table, $where);

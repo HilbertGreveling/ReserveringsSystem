@@ -5,6 +5,7 @@
 require('core/init.php');
 
 $user = new User();
+$reserve = new Reserve();
 
 if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
@@ -83,6 +84,18 @@ if(!$user->isLoggedIn()){
                     Komende reserveringen
                     <div class="line-separator red darken-4"></div>
                 </h5>
+                <?php
+                    $reservations = $reserve->fetch($user->data()->id);
+
+                    //print_r($reservations);
+                    if(is_array($reservations)){
+                        echo "YEA BOII ITS A ARRAY";
+                        print_r($reservations[1]);
+                        foreach ($reservations as $key => $value) {
+                            // var_dump($value);
+                        }
+                    }
+                ?>
                 <div class="row">
                     <table class="centered">
                         <thead>
@@ -93,7 +106,10 @@ if(!$user->isLoggedIn()){
                                 <th data-field="" class="center"></th>
                           </tr>
                         </thead>
+
                         <tbody>
+
+
                             <tr>
                                 <td>22/03/2015</td>
                                 <td>08:30 - 16:30</td>
@@ -144,4 +160,3 @@ if(!$user->isLoggedIn()){
     </script>
 </body>
 </html>
-
