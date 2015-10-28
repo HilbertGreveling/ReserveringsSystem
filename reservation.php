@@ -160,7 +160,10 @@
 
          $('.datepicker').pickadate({
             format: 'yyyy-mm-dd',
-            disableWeekends: true,
+            disable: [
+                1, 7
+            ],
+            min: true,
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 15 // Creates a dropdown of 15 years to control year
           });
