@@ -17,6 +17,7 @@ class Reserve {
     }
 
     public function fetch($code = null) {
+
         $fetch = $this->_db->get('reservations', array('ov', '=', $code), 'ORDER BY DATE');
         if(!$fetch){
             throw new Exception("There was a problem making this reservation");

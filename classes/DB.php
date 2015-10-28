@@ -138,8 +138,7 @@ class DB {
             }
 
             $sql = "INSERT INTO ". $table . " (`".implode('`, `', $keys)."`) VALUES ({$values})";
-            echo $sql;
-            print_r($fields);
+
             if(!$this->query($sql, $fields)->error()) {
                 return true;
             }
@@ -215,6 +214,4 @@ class DB {
     public function count() {
         return $this->_count;
     }
-
-
-    }
+}

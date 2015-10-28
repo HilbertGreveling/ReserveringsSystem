@@ -33,6 +33,7 @@
                     array(
                         'ov' => $user->data()->id,
                         'workplace_id' => 1,
+                        'classroom' => Input::get('classroom'),
                         'date' => Input::get('date'),
                         'time_id' => Input::get('time')
                     ));
@@ -130,6 +131,13 @@
                               <option value="1">08:30 - 11:45</option>
                               <option value="2">12:30 - 16:30</option>
                               <option value="3">08:30 - 16:30</option>
+                            </select>
+                        </div>
+                        <div class="input-field col s12">
+                            <select name="classroom">
+                              <option value="130" selected>Selecteer een klaslokaal</option>
+                              <option value="130">130</option>
+                              <option value="215">215</option>
                             </select>
                         </div>
                     </div>

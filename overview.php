@@ -84,18 +84,7 @@ if(!$user->isLoggedIn()){
                     Komende reserveringen
                     <div class="line-separator red darken-4"></div>
                 </h5>
-                <?php
-                    $reservations = $reserve->fetch($user->data()->id);
 
-                    //print_r($reservations);
-                    if(is_array($reservations)){
-                        echo "YEA BOII ITS A ARRAY";
-                        print_r($reservations[1]);
-                        foreach ($reservations as $key => $value) {
-                            // var_dump($value);
-                        }
-                    }
-                ?>
                 <div class="row">
                     <table class="centered">
                         <thead>
@@ -108,39 +97,21 @@ if(!$user->isLoggedIn()){
                         </thead>
 
                         <tbody>
-
-
-                            <tr>
-                                <td>22/03/2015</td>
-                                <td>08:30 - 16:30</td>
-                                <td>130.1</td>
-                                <td><i class="material-icons">delete</i></td>
-                            </tr>
-                            <tr>
-                                <td>22/03/2015</td>
-                                <td>08:30 - 16:30</td>
-                                <td>130.6</td>
-                                <td><i class="material-icons">delete</i></td>
-                            </tr>
-
-                            <tr>
-                                <td>26/03/2015</td>
-                                <td>12:30 - 16:30</td>
-                                <td>222.3</td>
-                                <td><i class="material-icons">delete</i></td>
-                            </tr>
-                            <tr>
-                                <td>21/04/2015</td>
-                                <td>08:30 - 11:45</td>
-                                <td>130.3</td>
-                                <td><i class="material-icons">delete</i></td>
-                            </tr>
-                            <tr>
-                                <td>22/04/2015</td>
-                                <td>08:30 - 16:30</td>
-                                <td>222.1</td>
-                                <td><i class="material-icons">delete</i></td>
-                            </tr>
+                            <?php
+                                $reservations = $reserve->fetch($user->data()->id);
+                                if(is_array($reservations)){
+                                    foreach ($reservations as $key => $value) {
+                                        $times = DB::getInstance()->get('time', array('time_id', '=', $value->time_id));
+                                        $time = $times->results();
+                                            echo "<tr>";
+                                            echo "<td>" . $value->date . "</td>" ;
+                                            echo "<td>" . $time[0]->start . " - " . $time[0]->end . "</td>" ;
+                                            echo "<td>" . $value->classroom . "." .$value->workplace_id . "</td>";
+                                            echo '<td><i class="material-icons">delete</i></td>';
+                                            echo "</tr>";
+                                    }
+                                }
+                            ?>
                         </tbody>
                     </table>
 
