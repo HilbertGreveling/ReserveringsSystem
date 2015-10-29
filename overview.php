@@ -6,7 +6,7 @@ require('core/init.php');
 
 $user = new User();
 $reserve = new Reserve();
-
+echo date("Y-m-d");
 if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
 }
