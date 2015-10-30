@@ -77,7 +77,7 @@ class DB {
     /   Fills and prepares the query and then executes the query with the the query() method
     / ------------------------------------------------------------------------------------------------------ */
 
-        public function action($action, $table, $where = array(), $order = null) {
+        private function action($action, $table, $where = array(), $order = null) {
         if(count($where) === 3) {
             $operators = array('=', '>', '<', '>=', '<=');
 
