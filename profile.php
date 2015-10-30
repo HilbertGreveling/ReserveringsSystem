@@ -6,10 +6,6 @@ $user = new User();
 if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
 }
-// flash a message if exists //
-if(Session::exists('home')) {
-    echo '<p>'.Session::flash('home').'</p>';
-}
 
 if(Input::exists()) {
     if(Token::check(Input::get('token'))) {
