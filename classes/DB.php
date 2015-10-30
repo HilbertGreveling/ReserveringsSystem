@@ -77,22 +77,28 @@ class DB {
     /   Fills and prepares the query and then executes the query with the the query() method
     / ------------------------------------------------------------------------------------------------------ */
 
-        private function action($action, $table, $where = array(), $order = null) {
-        if(count($where) === 3) {
-            $operators = array('=', '>', '<', '>=', '<=');
+    private function action($action, $table, $where = array(), $order = null) {
 
-            $field      = $where[0];
-            $operator   = $where[1];
-            $value      = $where[2];
+            if(count($wheres[$i]) === 3) {
+                for($i = 0; $i< count($where); $i++){
 
-            if(in_array($operator, $operators)) {
-                $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ? {$order}";
-                if(!$this->query($sql, array($value))->error()) {
-                    return $this;
+                $where = $wheres[$i];
+                $operators = array('=', '>', '<', '>=', '<=');
+
+                $field      = $where[0];
+                $operator   = $where[1];
+                $value      = $where[2];
+
+                if(in_array($operator, $operators)) {
+                    $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ? {$order}";
+                    if(!$this->query($sql, array($value))->error()) {
+                        return $this;
+                    }
                 }
+            } else {
+                return false;
             }
         }
-        return false;
     }
 
     /* ------------------------------------------------------------------------------------------------------
