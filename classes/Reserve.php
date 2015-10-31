@@ -16,9 +16,13 @@ class Reserve {
         $this->_db = DB::getInstance();
     }
 
-    public function fetch($code = null) {
+    public function fetch($code = null,$when) {
+        if($when === 'expired'){
+            $fetch = $this->_db->query("SELECT * FROM reservations WHERE ov = ? AND date < ? order by date", array($code, date("Y-m-d")));
 
-        $fetch = $this->_db->get('reservations', array('ov', '=', $code), 'ORDER BY DATE');
+        } else if($when === 'upcoming') {
+            $fetch = $this->_db->query("SELECT * FROM reservations WHERE ov = ? AND date >= ? order by date", array($code, date("Y-m-d")));
+        }
         if(!$fetch){
             throw new Exception("There was a problem making this reservation");
         } else {

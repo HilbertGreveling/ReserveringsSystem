@@ -98,10 +98,8 @@ if(!$user->isLoggedIn()){
 
                         <tbody>
                             <?php
-                                $sql = "SELECT * FROM reservations WHERE ov = ? AND date < ? order by date";
-                                $meme = DB::getInstance()->query("SELECT * FROM reservations WHERE ov = ? AND date < ? order by date", array(103858, date("Y-m-d")));
-                                print_r($meme->results());
-                                $reservations = $reserve->fetch($user->data()->id);
+
+                                $reservations = $reserve->fetch($user->data()->id, "upcoming");
                                 if(is_array($reservations)){
                                     foreach ($reservations as $key => $value) {
                                         $times = DB::getInstance()->get('time', array('time_id', '=', $value->time_id));

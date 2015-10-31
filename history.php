@@ -6,6 +6,7 @@
 require('core/init.php');
 
 $user = new User();
+$reserve = new Reserve();
 
 if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
@@ -66,7 +67,7 @@ if(!$user->isLoggedIn()){
                     <li><a href="overview.php">Reserveringen</a></li>
                     <li><a href="index.php">Overzicht</a>
                     <li><a href="history.php">Verlopen reserveringen</a></li>
-                    <li><a href="profile.php.php">Bewerk Profiel</a></li>
+                    <li><a href="profile.php">Bewerk Profiel</a></li>
                     <li class="divider"></li>
                     <li><a href="logout.php">Afmelden</a></li>
 
@@ -95,32 +96,21 @@ if(!$user->isLoggedIn()){
                           </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>22/03/2015</td>
-                                <td>08:30 - 16:30</td>
-                                <td>130.1</td>
-                            </tr>
-                            <tr>
-                                <td>22/03/2015</td>
-                                <td>08:30 - 16:30</td>
-                                <td>130.6</td>
-                            </tr>
+                            <?php
 
-                            <tr>
-                                <td>26/03/2015</td>
-                                <td>12:30 - 16:30</td>
-                                <td>222.3</td>
-                            </tr>
-                            <tr>
-                                <td>21/04/2015</td>
-                                <td>08:30 - 11:45</td>
-                                <td>130.3</td>
-                            </tr>
-                            <tr>
-                                <td>22/04/2015</td>
-                                <td>08:30 - 16:30</td>
-                                <td>222.1</td>
-                            </tr>
+                                $reservations = $reserve->fetch($user->data()->id, "expired");
+                                if(is_array($reservations)){
+                                    foreach ($reservations as $key => $value) {
+                                        $times = DB::getInstance()->get('time', array('time_id', '=', $value->time_id));
+                                        $time = $times->results();
+                                            echo "<tr>";
+                                            echo "<td>" . $value->date . "</td>" ;
+                                            echo "<td>" . $time[0]->start . " - " . $time[0]->end . "</td>" ;
+                                            echo "<td>" . $value->classroom . "." .$value->workplace_id . "</td>";
+                                            echo "</tr>";
+                                    }
+                                }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -138,4 +128,3 @@ if(!$user->isLoggedIn()){
     </script>
 </body>
 </html>
-
