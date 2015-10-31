@@ -6,7 +6,7 @@ require('core/init.php');
 
 $user = new User();
 $reserve = new Reserve();
-echo date("Y-m-d");
+
 if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
 }
@@ -99,7 +99,7 @@ if(!$user->isLoggedIn()){
                         <tbody>
                             <?php
                                 $sql = "SELECT * FROM reservations WHERE ov = ? AND date < ? order by date";
-                                $meme = DB::getInstance()->query("SELECT * FROM reservations WHERE ov = ? AND date > ? order by date", array(103858, '2015-10-30'));
+                                $meme = DB::getInstance()->query("SELECT * FROM reservations WHERE ov = ? AND date < ? order by date", array(103858, date("Y-m-d")));
                                 print_r($meme->results());
                                 $reservations = $reserve->fetch($user->data()->id);
                                 if(is_array($reservations)){
