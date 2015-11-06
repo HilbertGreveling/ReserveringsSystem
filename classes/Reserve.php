@@ -35,6 +35,10 @@ class Reserve {
 
     }
 
+    // public function workplace($date, $classroom){
+    //     $currentreservations = $this->_db->query(SELECT classroom, workplace_id, date FROM reservations INNER JOIN workplace class ON ( class.classroom = classroom) INNER JOIN workplace place ON ( place.workplace_id = workplace_id) WHERE classroom = ? AND date < ?  order by date", array($classroom, $date)
+    // }
+
     public function delete($id = null) {
 
     }

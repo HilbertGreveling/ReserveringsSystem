@@ -98,7 +98,7 @@ if(!$user->isLoggedIn()){
 
                         <tbody>
                             <?php
-
+                                
                                 $reservations = $reserve->fetch($user->data()->id, "upcoming");
                                 if(is_array($reservations)){
                                     foreach ($reservations as $key => $value) {
