@@ -9,7 +9,6 @@ if(!$user->isLoggedIn()){
 
 if(Input::exists()) {
     if(Token::check(Input::get('token'))) {
-        // echo 'OK!';
         $validate = new Validate();
         $validation = $validate->check($_POST, array(
             'password' => array(
@@ -27,7 +26,6 @@ if(Input::exists()) {
             )
         ));
         if($validation->passed()) {
-            // change password
             if(Hash::make(Input::get('password'), $user->data()->salt) !== $user->data()->password) {
                 echo 'Your current password is wrong.';
             } else {

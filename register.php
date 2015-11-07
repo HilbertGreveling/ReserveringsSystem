@@ -43,6 +43,7 @@
                 $salt = Hash::salt(32);
                 try {
                     $user->create(array(
+                        'id' => Input::get('ov'),
                         'username' => Input::get('username'),
                         'email' => Input::get('email'),
                         'password' => Hash::make(Input::get('password'), $salt),
@@ -107,7 +108,7 @@
 
     <div class="container">
     <div class="row">
-        <div class="col s12 m6 l4 offset-m4 offset-l4">
+        <div class="col s12 m6 l4 offset-m3 offset-l4">
             <div class="widget-item z-depth-1">
                 <h4>Registreren</h4>
 
@@ -118,7 +119,12 @@
                                 <div class="input-field col s12">
                                     <i class="mdi-action-account-circle prefix"></i>
                                     <input id="username" name="username" type="text" class="validate">
-                                    <label for="username">Ov-nummer</label>
+                                    <label for="username">Username</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="mdi-action-account-circle prefix"></i>
+                                    <input id="ov" name="ov" type="text" class="validate">
+                                    <label for="ov">Ov-nummer</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="mdi-action-account-circle prefix"></i>
@@ -146,6 +152,9 @@
                                     <label for="passwordrepeat">Repeat password</label>
                                 </div>
                                 <button class="btn waves-effect blue waves-light"  type="submit">Registreren<i class="mdi-action-lock-open right"></i></button>
+                                <div class="row">
+                                    <i><a href="login.php">Al een account? Klik hier.</a></i>
+                                </div>
                                 <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
                             </div>
                         </form>

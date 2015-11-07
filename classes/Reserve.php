@@ -31,13 +31,17 @@ class Reserve {
 
     }
 
-    public function check($date = null, $time = null) {
-
+    public function check($ov, $date = null, $time = null) {
+        $check = $this->_db->query("SELECT ov, date, workplace_id, time_id from reservations WHERE ov = ? AND date = ?  ", array($ov, $date));
+        print_r($check);
     }
 
-    // public function workplace($date, $classroom){
-    //     $currentreservations = $this->_db->query(SELECT classroom, workplace_id, date FROM reservations INNER JOIN workplace class ON ( class.classroom = classroom) INNER JOIN workplace place ON ( place.workplace_id = workplace_id) WHERE classroom = ? AND date < ?  order by date", array($classroom, $date)
-    // }
+    public function workplace($date, $classroom){
+        $curres = $this->_db->query("SELECT classroom, workplace_id, date FROM reservations WHERE classroom = ? AND date = ?  order by workplace_id", array($classroom, $date));
+
+        $workplaces = $this->_db->query("SELECT workplace_id from workplaces");
+        return print_r($workplaces);
+    }
 
     public function delete($id = null) {
 

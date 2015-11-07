@@ -50,7 +50,7 @@
 
     <div class="container">
     <div class="row">
-        <div class="col s12 m4 l4 offset-m4 offset-l4">
+        <div class="col s12 m6 l4 offset-m3 offset-l4">
             <div class="widget-item z-depth-1">
                 <h4>Inloggen</h4>
 
