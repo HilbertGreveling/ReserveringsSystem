@@ -36,11 +36,24 @@ class Reserve {
         print_r($check);
     }
 
-    public function workplace($date, $classroom){
-        $curres = $this->_db->query("SELECT classroom, workplace_id, date FROM reservations WHERE classroom = ? AND date = ?  order by workplace_id", array($classroom, $date));
+    public function workplace($date, $classroom, $time){
+        $qDayres = $this->_db->query("SELECT classroom, workplace_id, date FROM reservations WHERE classroom = ? AND date = ? AND time_id = ? order by workplace_id", array($classroom, $date, $time));
+        $aDayres = $qDayres->results();
+        $qWorkplaces = $this->_db->query("SELECT workplace_id from workplace WHERE classroom = ? ", array($classroom));
+        $aWorkplaces = $qWorkplaces->results();
 
-        $workplaces = $this->_db->query("SELECT workplace_id from workplaces");
-        return print_r($workplaces);
+
+        $resdays = array();
+        foreach($aDayres as $key => $value){
+            array_push($resdays, $value->workplace_id);
+        }
+        print_r($resdays);
+        // for($i = 0; $i < count($aDayres); $i++){
+        //     foreach($aWorkplaces as $key => $value){
+        //         echo $value->workplace_id;
+        //
+        //     }
+        // }
     }
 
     public function delete($id = null) {
