@@ -32,19 +32,23 @@
             ));
             if($validation->passed($validate)){ // Check if the selected date is available, if false return error message
 
-
-                //$check = $reserve->check($user->data()-id, Input::get('date'), Input::get('time'));
-                try {
-                $reservation = $reserve->create(
-                    array(
-                        'ov' => $user->data()->id,
-                        'workplace_id' => 2,
-                        'classroom' => Input::get('classroom'),
-                        'date' => Input::get('date'),
-                        'time_id' => Input::get('time')
-                    ));
-                }catch(Exception $e) {
-                    die($e->getMessage());
+                // print_r($reserve->checkDay(Input::get('date'), Input::get('time')));
+                $check = $reserve->checkUser($user->data()->id, Input::get('date'), Input::get('time'));
+                if($check){
+                    try {
+                    $reservation = $reserve->create(
+                        array(
+                            'ov' => $user->data()->id,
+                            'workplace_id' => 2,
+                            'classroom' => Input::get('classroom'),
+                            'date' => Input::get('date'),
+                            'time_id' => Input::get('time')
+                        ));
+                    }catch(Exception $e) {
+                        die($e->getMessage());
+                    }
+                } else {
+                    echo "meme";
                 }
             } else {
                 echo "Thats not the magic number";

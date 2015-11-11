@@ -31,9 +31,28 @@ class Reserve {
 
     }
 
-    public function check($ov, $date = null, $time = null) {
-        $check = $this->_db->query("SELECT ov, date, workplace_id, time_id from reservations WHERE ov = ? AND date = ?  ", array($ov, $date));
-        print_r($check);
+    public function checkDay($date, $time) {
+        if(isset($date) && isset($time)){
+            $check = $this->_db->query("SELECT ov, date, workplace_id, time_id from reservations WHERE  date = ? AND time_id = ? ", array($date, $time));
+            $workplace = $this->_db->get('workplace', array());
+            if($check){
+                if(count($check) >= count($workplace)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function checkUser($ov, $date, $time) {
+        $check = $this->_db->query("SELECT ov, date, workplace_id, time_id from reservations WHERE ov = ? AND date = ? AND time_id = ? ", array($ov, $date, $time));
+        if($check != false){
+            return true;
+        }
+        return false;
     }
 
     public function workplace($date, $classroom, $time){
