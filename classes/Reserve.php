@@ -19,7 +19,6 @@ class Reserve {
     public function fetch($code = null,$when) {
         if($when === 'expired'){
             $fetch = $this->_db->query("SELECT * FROM reservations WHERE ov = ? AND date < ? order by date", array($code, date("Y-m-d")));
-
         } else if($when === 'upcoming') {
             $fetch = $this->_db->query("SELECT * FROM reservations WHERE ov = ? AND date >= ? order by date", array($code, date("Y-m-d")));
         }
@@ -31,15 +30,16 @@ class Reserve {
 
     }
 
-    public function checkDay($date, $time) {
-        if(isset($date) && isset($time)){
+    public function checkDay($date, $time, $classroom) {
+        if(!empty($date) && !empty($time) && !empty($classroom)){
             $check = $this->_db->query("SELECT ov, date, workplace_id, time_id from reservations WHERE  date = ? AND time_id = ? ", array($date, $time));
-            $workplace = $this->_db->get('workplace', array());
+
+            $workplace = $this->_db->get('workplace', array('classroom', "=", $classroom));
             if($check){
-                if(count($check) >= count($workplace)) {
-                    return false;
+                if(count($check) >= count($workplace->results())) {
+                    return "Alle tafels vol voor die dag";
                 } else {
-                    return true;
+                    return "genereer tafel";
                 }
             }
         } else {

@@ -67,3 +67,47 @@
 });
 </script>
 </html>
+
+
+public function StoreUser($email,$username,$password)
+    {
+        //set TAG to register
+        $this->response["method"] = "register";
+
+        //check if email used
+        $query = "SELECT *
+                    FROM user
+                    WHERE email = :email";
+
+            $pdo = $this->db->prepare($query);
+            $pdo->bindparam(":email", $email);
+            $pdo->execute();
+            $checkEmail = $pdo->fetch(PDO::FETCH_ASSOC);
+
+        //check if username used
+        $query = "SELECT *
+                    FROM user
+                    WHERE username = :username";
+
+            $pdo2 = $this->db->prepare($query);
+            $pdo2->bindparam(":username", $username);
+            $pdo2->execute();
+            $checkUser = $pdo2->fetch(PDO::FETCH_ASSOC);
+
+
+            if ($checkEmail != false)
+            {
+                //email already used
+                $this->response["error"] = true;
+                $this->response["error_msg"] = "Email already used";
+                echo json_encode($this->response);
+                die();
+            }
+            elseif ($checkUser != false)
+            {
+                //username already used
+                $this->response["error"] = true;
+                $this->response["error_msg"] = "Username already used";
+                echo json_encode($this->response);
+                die();
+            }

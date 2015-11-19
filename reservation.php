@@ -32,7 +32,7 @@
             ));
             if($validation->passed($validate)){ // Check if the selected date is available, if false return error message
 
-                // print_r($reserve->checkDay(Input::get('date'), Input::get('time')));
+                print_r($reserve->checkDay(Input::get('date'), Input::get('time'), Input::get('classroom')));
                 $check = $reserve->checkUser($user->data()->id, Input::get('date'), Input::get('time'));
                 if($check){
                     try {
@@ -48,7 +48,7 @@
                         die($e->getMessage());
                     }
                 } else {
-                    echo "meme";
+                    echo "dickfuck";
                 }
             } else {
                 echo "Thats not the magic number";
