@@ -18,8 +18,6 @@
         Redirect::to( 'login.php');
     }
 
-//$workplace = $reserve->workplace("2015-10-29", 130, 3);
-    echo $user->data()->id;
 
     if(Input::exists()) {
         if(Token::check(Input::get('token'))){
@@ -31,15 +29,12 @@
                 'time' => array('required' => true)
             ));
             if($validation->passed($validate)){ // Check if the selected date is available, if false return error message
-
-                print_r($reserve->checkDay(Input::get('date'), Input::get('time'), Input::get('classroom')));
-                $check = $reserve->checkUser($user->data()->id, Input::get('date'), Input::get('time'));
-                if($check){
+                if($reserve->checkUser($user->data()->id, Input::get('date'), Input::get('time'))){
                     try {
                     $reservation = $reserve->create(
                         array(
                             'ov' => $user->data()->id,
-                            'workplace_id' => 2,
+                            'workplace_id' => $reserve->checkDay(Input::get('date'), Input::get('time'), Input::get('classroom')),
                             'classroom' => Input::get('classroom'),
                             'date' => Input::get('date'),
                             'time_id' => Input::get('time')
