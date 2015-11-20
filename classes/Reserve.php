@@ -35,15 +35,15 @@ class Reserve {
             $check = $this->_db->query("SELECT ov, date, workplace_id, time_id from reservations WHERE  date = ? AND time_id = ? ", array($date, $time));
 
             $workplace = $this->_db->get('workplace', array('classroom', "=", $classroom));
+            $workplaces = count($workplace->results());
             if($check){
-                if(count($check) >= count($workplace->results())) {
+                if(count($check) >= $workplaces) {
                     return "Alle tafels vol voor die dag";
                 } else {
-                    return "genereer tafel";
+                    //genereer tafel
+                    return $this->workplace($date, $classroom, $time);
                 }
             }
-        } else {
-            return false;
         }
     }
 
@@ -56,23 +56,7 @@ class Reserve {
     }
 
     public function workplace($date, $classroom, $time){
-        $qDayres = $this->_db->query("SELECT classroom, workplace_id, date FROM reservations WHERE classroom = ? AND date = ? AND time_id = ? order by workplace_id", array($classroom, $date, $time));
-        $aDayres = $qDayres->results();
-        $qWorkplaces = $this->_db->query("SELECT workplace_id from workplace WHERE classroom = ? ", array($classroom));
-        $aWorkplaces = $qWorkplaces->results();
-
-
-        $resdays = array();
-        foreach($aDayres as $key => $value){
-            array_push($resdays, $value->workplace_id);
-        }
-        print_r($resdays);
-        // for($i = 0; $i < count($aDayres); $i++){
-        //     foreach($aWorkplaces as $key => $value){
-        //         echo $value->workplace_id;
-        //
-        //     }
-        // }
+        // Gotta remake workplace, was pure dogshit
     }
 
     public function delete($id = null) {
