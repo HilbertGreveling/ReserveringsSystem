@@ -114,8 +114,6 @@ if(!$user->isLoggedIn()){
                             ?>
                         </tbody>
                     </table>
-
-
                 </div>
             </div>
         </div>

@@ -50,7 +50,7 @@ class Reserve {
             $workplace = $this->_db->get('workplace', array('classroom', "=", $classroom));
             if($check){
                 if(count($check) >= count($workplace->results())) {
-                    return "Alle tafels vol voor die dag";
+                    return "Er zijn geen tafels beschikbaar op dit tijdstip.";
                 } else {
                     return $this->workplace($date, $classroom, $time);
                 }
@@ -93,7 +93,6 @@ class Reserve {
         $qWorkplaces = $this->_db->query("SELECT workplace_id from workplace WHERE classroom = ? ", array($classroom));
         $oWorkplaces = $qWorkplaces->results();
 
-        print_r($oDayres);
         $aWorkplaces = array();
         foreach($oWorkplaces as $key => $value){
             $aWorkplaces[] = $value->workplace_id;
@@ -111,12 +110,18 @@ class Reserve {
     }
 
     /**
-     * [delete description]
-     * @param  [type] $id [description]
+     * [delete Deleting a reservation by id]
+     * @param  [type] $id [reservation id]
      * @return [type]     [description]
      */
-    public function delete($id = null) {
+    public function delete($id) {
+        if(is_null($id) && !is_numeric($id)){
+            return false;
+        }
 
+        if($this->_db->delete('reservations', array('id', '=', $id))){
+            return true;
+        }
     }
 
     /**
@@ -131,13 +136,13 @@ class Reserve {
     }
 
     /**
-     * [deleteAllExp description]
+     * [deleteAllExp Deletes all of the expired reservations for this user]
      * @return [type] [description]
      */
-    public function deleteAllExp() {
-        /*
-
-        */
+    public function deleteAllExp($id) {
+        if($this->_db->query("DELETE * FROM reservations WHERE id = ? AND date < ?", array($id , date("Y-m-d")))){
+            return "Alle verlopen reserveringen succesvol verwijdert.";
+        }
     }
 
     /**
