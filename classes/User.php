@@ -42,6 +42,7 @@ class User {
             // if user had a numeric username this FAILS...
             $field = (is_numeric($user)) ? 'id' : 'username';
             $data = $this->_db->get('users', array($field, '=', $user));
+            // print_r($data);
             if($data->count()) {
                 $this->_data = $data->first();
                 return true;

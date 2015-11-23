@@ -19,7 +19,6 @@ class Reserve {
     public function fetch($code = null,$when) {
         if($when === 'expired'){
             $fetch = $this->_db->query("SELECT * FROM reservations WHERE ov = ? AND date < ? order by date", array($code, date("Y-m-d")));
-
         } else if($when === 'upcoming') {
             $fetch = $this->_db->query("SELECT * FROM reservations WHERE ov = ? AND date >= ? order by date", array($code, date("Y-m-d")));
         }

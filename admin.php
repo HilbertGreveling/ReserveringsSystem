@@ -1,7 +1,6 @@
 <?php
 /*
-    Query om reserveringen op te halen reserveringen voor huidige datum
-    Optie om verlopen reserveringen te verwijderen / alle verlopen reserveringen te verwijderen?
+    Alle staande reserveringen ophalen + optie om reserveringen te verwijderen uit de database.
  */
 require('core/init.php');
 
@@ -11,6 +10,7 @@ $reserve = new Reserve();
 if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +20,7 @@ if(!$user->isLoggedIn()){
     <link rel="shortcut icon" href="resources/icon/favicon.ico">
     <link rel="stylesheet" type="text/css" href="resources/css/materialize.css">
     <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="grey lighten-3">
 
@@ -36,7 +37,8 @@ if(!$user->isLoggedIn()){
             </div>
         </div>
     </noscript>
-     <!-- Include Menu balk-->
+
+         <!-- Include Menu balk-->
 <?php
 include 'menu.php';
 ?>
@@ -46,37 +48,43 @@ include 'menu.php';
     <div class="container">
         <div class="row">
             <div class="grey lighten-4 post-index z-depth-2 col s12 m8 offset-m2">
-                <h5 class="flow-text" style="text-align:center;">
-                    Verlopen reserveringen
+                    <div class="input-field col s12">
+                         <form class="col s12" method="POST" autocomplete="off" action="">
+                                <i class="mdi-action-search prefix"></i>
+                                <input id="Search" type="text" class="validate">
+                                <label for="Search">Zoek voor een naam of datum</label>
+                                <input type="hidden" name="token" value="<?php echo Token::generate(); ?>" />
+                        </form>
+                    </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="grey lighten-4 post-index z-depth-2 col s12 m8 offset-m2">
+                <h5 class="flow-text center" style="text-align:center;">
+                    Reserveringen van vandaag
                     <div class="line-separator red darken-4"></div>
                 </h5>
+
                 <div class="row">
                     <table class="centered">
                         <thead>
                           <tr>
-                              <th data-field="workspaceid" class="center">Datum</th>
-                              <th data-field="date" class="center">Tijd</th>
-                              <th data-field="time" class="center">Werkplek</th>
+                                <th data-field="date" class="center">Datum</th>
+                                <th data-field="time" class="center">Tijd</th>
+                                <th data-field="workspace" class="center">Werkplek</th>
+                                <th data-field="" class="center"></th>
                           </tr>
                         </thead>
+
                         <tbody>
                             <?php
-
-                                $reservations = $reserve->fetch($user->data()->id, "expired");
-                                if(is_array($reservations)){
-                                    foreach ($reservations as $key => $value) {
-                                        $times = DB::getInstance()->get('time', array('time_id', '=', $value->time_id));
-                                        $time = $times->results();
-                                            echo "<tr>";
-                                            echo "<td>" . $value->date . "</td>" ;
-                                            echo "<td>" . $time[0]->start . " - " . $time[0]->end . "</td>" ;
-                                            echo "<td>" . $value->classroom . "." .$value->workplace_id . "</td>";
-                                            echo "</tr>";
-                                    }
-                                }
+                            $search = $adminpanel->adminsearch($user->data()->id);
+                             print_r($search);
                             ?>
-                        </tbody>
+                        </tbody>mm
                     </table>
+
                 </div>
             </div>
         </div>
