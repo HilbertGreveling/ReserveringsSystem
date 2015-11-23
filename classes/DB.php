@@ -112,7 +112,7 @@ class DB {
     /   $deleteuser = DB::getInstance()->delete('users', array('username', '=', 'henk'), ORDER BY MEMES)
     / ------------------------------------------------------------------------------------------------------ */
     public function delete($table, $where) {
-        return$this->action('DELETE *', $table, $where);
+        return $this->action('DELETE *', $table, $where);
     }
 
     /* ------------------------------------------------------------------------------------------------------

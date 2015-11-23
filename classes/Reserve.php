@@ -16,6 +16,12 @@ class Reserve {
         $this->_db = DB::getInstance();
     }
 
+    /**
+     * [fetch get all the reservations from the given user from the database based on the $when variable]
+     * @param  [type] $code [description]
+     * @param  [type] $when [expired === load the expired reservations, upcoming === load the upcoming reservations]
+     * @return [type]       [return the results from the executed query]
+     */
     public function fetch($code = null,$when) {
         if($when === 'expired'){
             $fetch = $this->_db->query("SELECT * FROM reservations WHERE ov = ? AND date < ? order by date", array($code, date("Y-m-d")));
@@ -30,52 +36,92 @@ class Reserve {
 
     }
 
-    public function checkDay($date, $time) {
-        if(isset($date) && isset($time)){
+    /**
+     * [checkDay description]
+     * @param  [type] $date      [description]
+     * @param  [type] $time      [description]
+     * @param  [type] $classroom [description]
+     * @return [type]            [description]
+     */
+    public function checkDay($date, $time, $classroom) {
+        if(!empty($date) && !empty($time) && !empty($classroom)){
             $check = $this->_db->query("SELECT ov, date, workplace_id, time_id from reservations WHERE  date = ? AND time_id = ? ", array($date, $time));
-            $workplace = $this->_db->get('workplace', array());
+
+            $workplace = $this->_db->get('workplace', array('classroom', "=", $classroom));
             if($check){
-                if(count($check) >= count($workplace)) {
-                    return false;
+                if(count($check) >= count($workplace->results())) {
+                    return "Er zijn geen tafels beschikbaar op dit tijdstip.";
                 } else {
-                    return true;
+                    return $this->workplace($date, $classroom, $time);
                 }
             }
-        } else {
-            return false;
         }
     }
 
+    /**
+     * [checkUser description]
+     * @param  [type] $ov   [description]
+     * @param  [type] $date [description]
+     * @param  [type] $time [description]
+     * @return [type]       [description]
+     */
     public function checkUser($ov, $date, $time) {
         $check = $this->_db->query("SELECT ov, date, workplace_id, time_id from reservations WHERE ov = ? AND date = ? AND time_id = ? ", array($ov, $date, $time));
-        if($check != false){
+        if($check !== false){
             return true;
         }
         return false;
     }
 
+    /**
+     * [workplace Generating a workplace based on availability]
+     * @param  [type] $date      [Reservation date]
+     * @param  [type] $classroom [Classroom]
+     * @param  [type] $time      [Time ID]
+     * @return [type]            [Returns the first available workplace]
+     */
     public function workplace($date, $classroom, $time){
-        $qDayres = $this->_db->query("SELECT classroom, workplace_id, date FROM reservations WHERE classroom = ? AND date = ? AND time_id = ? order by workplace_id", array($classroom, $date, $time));
-        $aDayres = $qDayres->results();
-        $qWorkplaces = $this->_db->query("SELECT workplace_id from workplace WHERE classroom = ? ", array($classroom));
-        $aWorkplaces = $qWorkplaces->results();
-
-
-        $resdays = array();
-        foreach($aDayres as $key => $value){
-            array_push($resdays, $value->workplace_id);
+        if(empty($date) || empty($classroom) || empty($time)){
+            return false;
         }
-        print_r($resdays);
-        // for($i = 0; $i < count($aDayres); $i++){
-        //     foreach($aWorkplaces as $key => $value){
-        //         echo $value->workplace_id;
-        //
-        //     }
-        // }
+
+        $qDayres = $this->_db->query("SELECT classroom, workplace_id, date FROM reservations WHERE classroom = ? AND date = ? AND time_id = ? order by workplace_id", array($classroom, $date, $time));
+        if(empty($oDayres = $qDayres->results())){
+            return false;
+        }
+
+        $qWorkplaces = $this->_db->query("SELECT workplace_id from workplace WHERE classroom = ? ", array($classroom));
+        $oWorkplaces = $qWorkplaces->results();
+
+        $aWorkplaces = array();
+        foreach($oWorkplaces as $key => $value){
+            $aWorkplaces[] = $value->workplace_id;
+        }
+
+        foreach($oDayres as $keys => $value){
+            if(!is_null($key = array_search($value->workplace_id, $aWorkplaces))){
+                unset($aWorkplaces[$key]);
+                $aWorkplaces = array_values($aWorkplaces);
+            }
+        }
+
+        return $aWorkplaces[0];
+
     }
 
-    public function delete($id = null) {
+    /**
+     * [delete Deleting a reservation by id]
+     * @param  [type] $id [reservation id]
+     * @return [type]     [description]
+     */
+    public function delete($id) {
+        if(is_null($id) && !is_numeric($id)){
+            return false;
+        }
 
+        if($this->_db->delete('reservations', array('id', '=', $id))){
+            return true;
+        }
     }
 
     /**
@@ -89,12 +135,20 @@ class Reserve {
         }
     }
 
-    public function deleteAllExp() {
-        /*
-
-        */
+    /**
+     * [deleteAllExp Deletes all of the expired reservations for this user]
+     * @return [type] [description]
+     */
+    public function deleteAllExp($id) {
+        if($this->_db->query("DELETE * FROM reservations WHERE id = ? AND date < ?", array($id , date("Y-m-d")))){
+            return "Alle verlopen reserveringen succesvol verwijdert.";
+        }
     }
 
+    /**
+     * [data description]
+     * @return [type] [description]
+     */
     public function data() {
         return $this->_data;
     }
