@@ -10,6 +10,9 @@ $reserve = new Reserve();
 if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
 }
+
+if(isset($get))
+
 ?>
 
 <!DOCTYPE html>
@@ -107,7 +110,9 @@ if(!$user->isLoggedIn()){
                                             echo "<td>" . $value->date . "</td>" ;
                                             echo "<td>" . $time[0]->start . " - " . $time[0]->end . "</td>" ;
                                             echo "<td>" . $value->classroom . "." .$value->workplace_id . "</td>";
-                                            echo '<td><i class="material-icons">delete</i></td>';
+                                            ?>
+                                            <td><form action="" method="post" ><input id="id" type="hidden" value="<?php echo $value->id; ?>"><i class="material-icons">delete</i></form></td>
+                                            <?php
                                             echo "</tr>";
                                     }
                                 }
