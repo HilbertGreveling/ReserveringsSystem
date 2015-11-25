@@ -8,9 +8,9 @@ class Reserve {
         deleteReservation
         deleteAllExp
  */
-    private $_db,
-            $_data,
-            $_sessionName;
+    private  $_db,
+                    $_data,
+                    $_sessionName;
 
     public function __construct() {
         $this->_db = DB::getInstance();
