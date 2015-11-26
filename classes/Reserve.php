@@ -119,8 +119,8 @@ class Reserve {
             return false;
         }
 
-        if($this->_db->delete('reservations', array('id', '=', $id))){
-            return true;
+        if($this->_db->query("DELETE FROM reservations WHERE id = ? ", array($id))){
+            return "Alle verlopen reserveringen succesvol verwijdert.";
         }
     }
 

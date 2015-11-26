@@ -11,8 +11,9 @@ if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
 }
 
-if(isset($get))
-
+if(Input::get("id") !== null && is_numeric(Input::get("id"))){
+    $reserve->delete(Input::get("id"));
+}
 ?>
 
 <!DOCTYPE html>
@@ -111,7 +112,14 @@ if(isset($get))
                                             echo "<td>" . $time[0]->start . " - " . $time[0]->end . "</td>" ;
                                             echo "<td>" . $value->classroom . "." .$value->workplace_id . "</td>";
                                             ?>
-                                            <td><form action="" method="post" ><input id="id" type="hidden" value="<?php echo $value->id; ?>"><i class="material-icons">delete</i></form></td>
+                                                <td>
+                                                    <form action="" method="post" >
+                                                        <input id="id" name="id" type="hidden" value="<?php echo $value->id; ?>">
+                                                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                                                            <i class="material-icons">delete</i>
+                                                        </button>
+                                                    </form>
+                                                </td>
                                             <?php
                                             echo "</tr>";
                                     }
