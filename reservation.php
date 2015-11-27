@@ -34,7 +34,7 @@
                     $reservation = $reserve->create(
                         array(
                             'ov' => $user->data()->id,
-                            'workplace_id' => $reserve->checkDay(Input::get('date'), Input::get('time'), Input::get('classroom')),
+                            'workplace_id' => $reserve->workplace(Input::get('date'), Input::get('classroom'), Input::get('time')),
                             'classroom' => Input::get('classroom'),
                             'date' => Input::get('date'),
                             'time_id' => Input::get('time')

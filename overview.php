@@ -115,7 +115,7 @@ if(Input::get("id") !== null && is_numeric(Input::get("id"))){
                                                 <td>
                                                     <form action="" method="post" >
                                                         <input id="id" name="id" type="hidden" value="<?php echo $value->id; ?>">
-                                                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                                                        <button id="deleteBtn" class="btn waves-effect waves-light" type="submit" name="action">
                                                             <i class="material-icons">delete</i>
                                                         </button>
                                                     </form>
@@ -139,6 +139,11 @@ if(Input::get("id") !== null && is_numeric(Input::get("id"))){
 
         $(".dropdown-button").dropdown();
 
+        $('#deleteBtn').click(function( event ) {
+            if(!confirm("Are you sure?")) {
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>

@@ -81,14 +81,12 @@ class Reserve {
      * @return [type]            [Returns the first available workplace]
      */
     public function workplace($date, $classroom, $time){
-        if(empty($date) || empty($classroom) || empty($time)){
+        if(empty($date) && empty($classroom) && empty($time)){
             return false;
         }
 
         $qDayres = $this->_db->query("SELECT classroom, workplace_id, date FROM reservations WHERE classroom = ? AND date = ? AND time_id = ? order by workplace_id", array($classroom, $date, $time));
-        if(empty($oDayres = $qDayres->results())){
-            return false;
-        }
+
 
         $qWorkplaces = $this->_db->query("SELECT workplace_id from workplace WHERE classroom = ? ", array($classroom));
         $oWorkplaces = $qWorkplaces->results();
@@ -98,15 +96,18 @@ class Reserve {
             $aWorkplaces[] = $value->workplace_id;
         }
 
-        foreach($oDayres as $keys => $value){
-            if(!is_null($key = array_search($value->workplace_id, $aWorkplaces))){
-                unset($aWorkplaces[$key]);
-                $aWorkplaces = array_values($aWorkplaces);
+
+        if(empty($oDayres = $qDayres->results())){
+            return 1;
+        } else {
+            foreach($oDayres as $keys => $value){
+                if(!is_null($key = array_search($value->workplace_id, $aWorkplaces))){
+                    unset($aWorkplaces[$key]);
+                    $aWorkplaces = array_values($aWorkplaces);
+                }
             }
+            return $aWorkplaces[0];
         }
-
-        return $aWorkplaces[0];
-
     }
 
     /**
