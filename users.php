@@ -99,13 +99,14 @@ include 'menu.php';
                             ?>
                         </tbody>
                     </table>
+                    <div class="line-separator grey lighten-1"></div>
                 </div>
             </div>
         </div>
     </div>
     <script type="text/javascript" src="resources/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="resources/js/materialize.min.js"></script>
-    <script type="text/javascript" src="resources/js/pagenation.js"></script>
+    <script type="text/javascript" src="resources/js/pagination.js"></script>
     <script type="text/javascript" src="resources/js/filter.js"></script>
     <script type="text/javascript">
         $(".button-collapse").sideNav();
