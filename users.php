@@ -55,7 +55,7 @@ include 'menu.php';
                          <form class="col s12" method="POST" autocomplete="off" action="">
                                 <i class="mdi-action-search prefix"></i>
                                 <input id="Search" type="text" class="validate">
-                                <label for="Search">Zoek voor een naam, ov-nummer, lokaal of datum</label>
+                                <label for="Search">Zoek voor een naam of ov-nummer</label>
                                 <input type="hidden" name="token" value="<?php echo Token::generate(); ?>" />
                         </form>
                     </div>
@@ -65,43 +65,37 @@ include 'menu.php';
         <div class="row">
             <div class="grey lighten-4 post-index z-depth-2 col s12 m8 offset-m2">
                 <h5 class="flow-text center" style="text-align:center;">
-                    Reserveringen
+                    Gebruikers
                     <div class="line-separator red darken-4"></div>
                 </h5>
 
                 <div class="row">
-                    <table class="centered">
+                    <table class="centered paginated">
                         <thead>
                           <tr>
-                                <th data-field="date" class="center">Ov-Nummer</th>
-                                <th data-field="date" class="center">Voornaam</th>
-                                <th data-field="date" class="center">Achternaam</th>
-                                <th data-field="date" class="center">Datum</th>
-                                <th data-field="time" class="center">Tijd</th>
-                                <th data-field="workspace" class="center">Werkplek</th>
+                                <th data-field="date" class="center" scope="col">Ov-Nummer</th>
+                                <th data-field="date" class="center" scope="col">Voornaam</th>
+                                <th data-field="date" class="center" scope="col">Achternaam</th>
+                                <th data-field="date" class="center" scope="col">E-mail</th>
+                                <th data-field="time" class="center" >Swag level</th>
                                 <th data-field="" class="center"></th>
                           </tr>
                         </thead>
-                        <tbody id="table">
+                        <tbody id="table" >
                             <?php
-                            $display = $adminpanel->display();
-                            if(is_array($display)){
-                                foreach ($display as $key => $value) {
-                                    $users = DB::getInstance()->get('users', array('id', '=', $value->ov));
-                                    $user = $users->results();
-                                    $times = DB::getInstance()->get('time', array('time_id', '=', $value->time_id));
-                                    $time = $times->results();
+                            $userdisplay = $adminpanel->userdisplay();
+                            if(is_array($userdisplay)){
+                                foreach ($userdisplay as $key => $value) {
                                     echo "<tr>" . PHP_EOL;
-                                    echo "<td>" . $value->ov . "</td>" . PHP_EOL;
-                                    echo "<td>" . $user[0]->firstname . "</td>" . PHP_EOL;
-                                    echo "<td>" . $user[0]->lastname . "</td>" . PHP_EOL;
-                                    echo "<td>" . $value->date . "</td>" . PHP_EOL;
-                                    echo "<td>" . $time[0]->start . " - " . $time[0]->end . "</td>" . PHP_EOL;
-                                    echo "<td>" . $value->classroom . "." .$value->workplace_id . "</td>". PHP_EOL;
+                                    echo "<td>" . $value->username . "</td>" . PHP_EOL;
+                                    echo "<td>" . $value->firstname . "</td>" . PHP_EOL;
+                                    echo "<td>" . $value->lastname . "</td>" . PHP_EOL;
+                                    echo "<td>" . $value->email . "</td>" . PHP_EOL;
+                                    echo "<td>" . $value->group . "</td>" . PHP_EOL;
                                     echo '<td><i class="material-icons">delete</i></td>' . PHP_EOL;
                                     echo "</tr>";
                                 }
-                                }
+                            }
                             ?>
                         </tbody>
                     </table>
@@ -111,23 +105,12 @@ include 'menu.php';
     </div>
     <script type="text/javascript" src="resources/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="resources/js/pagenation.js"></script>
+    <script type="text/javascript" src="resources/js/filter.js"></script>
     <script type="text/javascript">
         $(".button-collapse").sideNav();
 
         $(".dropdown-button").dropdown();
-
-        var $rows = $('#table tr');
-        $('#Search').keyup(function () {
-            var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-            reg = RegExp(val, 'i'),
-            text;
-
-            $rows.show().filter(function () {
-                text = $(this).text().replace(/\s+/g, ' ');
-                return !reg.test(text);
-            }).hide();
-        });
-
     </script>
 </body>
 </html>

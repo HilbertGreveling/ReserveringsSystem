@@ -8,7 +8,7 @@ class Reserve {
         deleteReservation
         deleteAllExp
  */
-    private  $_db,
+    private   $_db,
                     $_data,
                     $_sessionName;
 
