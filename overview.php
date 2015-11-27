@@ -106,7 +106,7 @@ include 'includes/menu.php';
         $(".dropdown-button").dropdown();
 
         $('#deleteBtn').click(function( event ) {
-            if(!confirm("Are you sure?")) {
+            if(!confirm("Weet je zeker dat je deze reservering wilt verwijderen?")) {
                 event.preventDefault();
             }
         });

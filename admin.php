@@ -14,6 +14,9 @@ if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
 }
 
+if(Input::get("id") !== null && is_numeric(Input::get("id"))){
+    $reserve->delete(Input::get("id"));
+}
 ?>
 
 <!DOCTYPE html>
@@ -98,7 +101,16 @@ include 'includes/menu.php';
                                     echo "<td>" . $value->date . "</td>" . PHP_EOL;
                                     echo "<td>" . $time[0]->start . " - " . $time[0]->end . "</td>" . PHP_EOL;
                                     echo "<td>" . $value->classroom . "." .$value->workplace_id . "</td>". PHP_EOL;
-                                    echo '<td><i class="material-icons">delete</i></td>' . PHP_EOL;
+                                    ?>
+                                        <td>
+                                            <form action="" method="post" >
+                                                <input id="id" name="id" type="hidden" value="<?php echo $value->id; ?>">
+                                                <button id="deleteBtn" class="btn waves-effect waves-light" type="submit" name="action">
+                                                    <i class="material-icons">delete</i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    <?php
                                     echo "</tr>";
                                 }
                             }
@@ -120,6 +132,12 @@ include 'includes/menu.php';
         $(".button-collapse").sideNav();
 
         $(".dropdown-button").dropdown();
+
+        $('#deleteBtn').on('click', function( event ) {
+            if(!confirm("Weet je zeker dat je deze reservering wilt verwijderen?")) {
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>

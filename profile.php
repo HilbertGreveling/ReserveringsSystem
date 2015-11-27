@@ -48,15 +48,6 @@ if(Input::exists()) {
     </head>
     <body class="grey lighten-3">
 
-        <ul id="navdropdown" class="dropdown-content cyan lighten-3">
-        <li><a href="#"><i class="mdi-social-person left"></i><?php echo escape($user->data()->username); ?></a></li>
-            <li><a href="index.php">Overzicht</a>
-            <li><a href="history.php">Verlopen reserveringen</a></li>
-            <li><a href="profile.php">Bewerk Profiel</a></li>
-            <li class="divider"></li>
-            <li><a href="logout.php">Afmelden</a></li>
-        </ul>
-
   <!-- Include Menu balk-->
 <?php
 include 'includes/menu.php';
