@@ -80,7 +80,7 @@ include 'includes/menu.php';
                                             ?>
                                                 <td>
                                                     <form action="" method="post" >
-                                                        <input id="id" name="id" type="hidden" value="<?php echo $value->id; ?>">
+                                                        <input name="id" type="hidden" value="<?php echo $value->id; ?>">
                                                         <button id="deleteBtn" class="btn waves-effect waves-light" type="submit" name="action">
                                                             <i class="material-icons">delete</i>
                                                         </button>
