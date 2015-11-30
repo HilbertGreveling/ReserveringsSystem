@@ -67,10 +67,12 @@ class Reserve {
      */
     public function checkUser($ov, $date, $time) {
         $check = $this->_db->query("SELECT ov, date, workplace_id, time_id from reservations WHERE ov = ? AND date = ? AND time_id = ? ", array($ov, $date, $time));
-        if($check !== false){
+
+        if($check->results()){
             return true;
-        }
+        } else {
         return false;
+        }
     }
 
     /**

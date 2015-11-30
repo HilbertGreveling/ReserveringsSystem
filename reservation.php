@@ -26,10 +26,11 @@
 
             $validation = $validate->check($_POST, array(
                 'date' => array('required' => true),
-                'time' => array('required' => true)
+                'time' => array('required' => true),
+                'classroom' => array('required' => true)
             ));
             if($validation->passed($validate)){ // Check if the selected date is available, if false return error message
-                if($reserve->checkUser($user->data()->id, Input::get('date'), Input::get('time'))){
+                if(!$reserve->checkUser($user->data()->id, Input::get('date'), Input::get('time'))){
                     try {
                     $reservation = $reserve->create(
                         array(
@@ -43,7 +44,8 @@
                         die($e->getMessage());
                     }
                 } else {
-                    echo "dickfuck";
+                    $message = "U heeft al een reservering voor dit tijdstip op ". Input::get('date') ." !";
+                    echo "<script type='text/javascript'>alert('$message');</script>";
                 }
             } else {
                 echo "Thats not the magic number";
