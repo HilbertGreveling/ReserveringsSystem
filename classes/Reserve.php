@@ -49,11 +49,14 @@ class Reserve {
 
             $workplace = $this->_db->get('workplace', array('classroom', "=", $classroom));
             if($check){
-                if(count($check) >= count($workplace->results())) {
-                    return "Er zijn geen tafels beschikbaar op dit tijdstip.";
-                } else {
+                if(!count($check) >= count($workplace->results())) {
                     return $this->workplace($date, $classroom, $time);
                 }
+                else {
+                    return false;
+                }
+            } else {
+                return false;
             }
         }
     }

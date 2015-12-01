@@ -30,22 +30,28 @@
                 'classroom' => array('required' => true)
             ));
             if($validation->passed($validate)){ // Check if the selected date is available, if false return error message
-                if(!$reserve->checkUser($user->data()->id, Input::get('date'), Input::get('time'))){
-                    try {
-                    $reservation = $reserve->create(
-                        array(
-                            'ov' => $user->data()->id,
-                            'workplace_id' => $reserve->workplace(Input::get('date'), Input::get('classroom'), Input::get('time')),
-                            'classroom' => Input::get('classroom'),
-                            'date' => Input::get('date'),
-                            'time_id' => Input::get('time')
-                        ));
-                    }catch(Exception $e) {
-                        die($e->getMessage());
+                if($reserve->checkDay(Input::get('date'), Input::get('classroom'), Input::get('time')) === 0){
+
+                    if(!$reserve->checkUser($user->data()->id, Input::get('date'), Input::get('time'))){
+                        try {
+                        $reservation = $reserve->create(
+                            array(
+                                'ov' => $user->data()->id,
+                                'workplace_id' => $reserve->checkDay(Input::get('date'), Input::get('classroom'), Input::get('time')),
+                                'classroom' => Input::get('classroom'),
+                                'date' => Input::get('date'),
+                                'time_id' => Input::get('time')
+                            ));
+                        }catch(Exception $e) {
+                            die($e->getMessage());
+                        }
+                    } else {
+                        $message = "U heeft al een reservering voor dit tijdstip op ". Input::get('date') ." !";
+                        echo "<script type='text/javascript'>alert('$message');</script>";
                     }
                 } else {
-                    $message = "U heeft al een reservering voor dit tijdstip op ". Input::get('date') ." !";
-                    echo "<script type='text/javascript'>alert('$message');</script>";
+                    $dayfull = "Er zijn geen tafels beschikbaar voor dit tijdstip op ". Input::get('date') ." !";
+                    echo "<script type='text/javascript'>alert('$dayfull');</script>";
                 }
             } else {
                 echo "Thats not the magic number";
