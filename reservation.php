@@ -30,14 +30,14 @@
                 'classroom' => array('required' => true)
             ));
             if($validation->passed($validate)){ // Check if the selected date is available, if false return error message
-                if($reserve->checkDay(Input::get('date'), Input::get('classroom'), Input::get('time')) === 0){
+                if($reserve->checkDay(Input::get('date'), Input::get('time'), Input::get('classroom'))){
 
                     if(!$reserve->checkUser($user->data()->id, Input::get('date'), Input::get('time'))){
                         try {
                         $reservation = $reserve->create(
                             array(
                                 'ov' => $user->data()->id,
-                                'workplace_id' => $reserve->checkDay(Input::get('date'), Input::get('classroom'), Input::get('time')),
+                                'workplace_id' => $reserve->workplace(Input::get('date'), Input::get('classroom'), Input::get('time')),
                                 'classroom' => Input::get('classroom'),
                                 'date' => Input::get('date'),
                                 'time_id' => Input::get('time')

@@ -24,11 +24,23 @@ class User {
             $this->find($user);
         }
     }
+
+    /**
+     * [create description]
+     * @param  array  $fields [description]
+     * @return [type]         [description]
+     */
     public function create($fields = array()) {
         if(!$this->_db->insert('users', $fields)) {
             throw new Exception('There was a problem creating this account.');
         }
     }
+
+    /**
+     * [update description]
+     * @param  array  $fields [description]
+     * @return [type]         [description]
+     */
     public function update($fields = array(), $id = null) {
         if(!$id && $this->isLoggedIn()) {
             $id = $this->data()->id;
@@ -37,6 +49,21 @@ class User {
             throw new Exception('There was a problem updating.');
         }
     }
+
+    public function delete($ov){
+        if(!is_numeric($ov) && empty($ov)){
+            return false;
+        }
+
+        if($this->_db->query("DELETE FROM users WHERE id = ? ", array($ov))){
+            return true;
+        }
+    }
+    /**
+     * [find description]
+     * @param  [type] $user [description]
+     * @return [type]       [description]
+     */
     public function find($user = null) {
         if($user) {
             // if user had a numeric username this FAILS...
@@ -50,6 +77,13 @@ class User {
         return false;
     }
 
+    /**
+     * [login description]
+     * @param  [type] $username [description]
+     * @param  [type] $password [description]
+     * @param  [type] $remember [description]
+     * @return [type]           [description]
+     */
     public function login($username = null, $password = null, $remember = false) {
 
         // print_r($this->_data);
@@ -81,6 +115,11 @@ class User {
         return false;
     }
 
+    /**
+     * [hasPermission description]
+     * @param  [type]  $key [description]
+     * @return boolean      [description]
+     */
     public function hasPermission($key) {
     $group = $this->_db->get('groups', array('id', '=', $this->data()->group));
         if($group->count()) {
@@ -92,20 +131,36 @@ class User {
         }
     }
 
+    /**
+     * [exists description]
+     * @return [type] [description]
+     */
     public function exists() {
         return (!empty($this->_data)) ? true : false;
     }
 
+    /**
+     * [logout description]
+     * @return [type] [description]
+     */
     public function logout() {
         $this->_db->delete('user_session', array('user_id', '=', $this->data()->id));
         Session::delete($this->_sessionName);
         Cookie::delete($this->_cookieName);
     }
 
+    /**
+     * [data description]
+     * @return [type] [description]
+     */
     public function data() {
         return $this->_data;
     }
 
+    /**
+     * [isLoggedIn description]
+     * @return boolean [description]
+     */
     public function isLoggedIn() {
         return $this->_isLoggedIn;
     }

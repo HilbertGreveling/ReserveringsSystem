@@ -35,7 +35,9 @@
                             <li><a href="profile.php">Bewerk Profiel</a></li>
                             <?php
                             if($user->hasPermission('admin')) {
-                                ?><li><a href="admin.php">Admin Panel</a></li><?php
+                                ?><li><a href="admin.php">Admin Panel</a></li>
+                                <li><a href="users.php">Gebruikers</a></li>
+                                <?php
                             }
                             ?>
                             <li class="divider"></li>

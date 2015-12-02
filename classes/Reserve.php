@@ -45,12 +45,12 @@ class Reserve {
      */
     public function checkDay($date, $time, $classroom) {
         if(!empty($date) && !empty($time) && !empty($classroom)){
-            $check = $this->_db->query("SELECT ov, date, workplace_id, time_id from reservations WHERE  date = ? AND time_id = ? ", array($date, $time));
-
+            $check = $this->_db->query("SELECT date, workplace_id, time_id from reservations WHERE  date = ? AND time_id = ? ", array($date, $time));
+            $checkcount = count($check->results());
             $workplace = $this->_db->get('workplace', array('classroom', "=", $classroom));
             if($check){
-                if(!count($check) >= count($workplace->results())) {
-                    return $this->workplace($date, $classroom, $time);
+                if(!$checkcount >= count($workplace->results())) {
+                    return true;
                 }
                 else {
                     return false;
@@ -74,7 +74,7 @@ class Reserve {
         if($check->results()){
             return true;
         } else {
-        return false;
+            return false;
         }
     }
 

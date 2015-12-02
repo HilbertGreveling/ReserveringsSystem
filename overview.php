@@ -56,7 +56,7 @@ include 'includes/menu.php';
                 </h5>
 
                 <div class="row">
-                    <table class="centered">
+                    <table class="centered paginated">
                         <thead>
                           <tr>
                                 <th data-field="date" class="center">Datum</th>
@@ -71,10 +71,11 @@ include 'includes/menu.php';
                                 $reservations = $reserve->fetch($user->data()->id, "upcoming");
                                 if(is_array($reservations)){
                                     foreach ($reservations as $key => $value) {
+                                        $date = date_create($value->date);
                                         $times = DB::getInstance()->get('time', array('time_id', '=', $value->time_id));
                                         $time = $times->results();
                                             echo "<tr>";
-                                            echo "<td>" . $value->date . "</td>" ;
+                                            echo "<td>" . date_format($date, 'd/m/Y') . "</td>" ;
                                             echo "<td>" . $time[0]->start . " - " . $time[0]->end . "</td>" ;
                                             echo "<td>" . $value->classroom . "." .$value->workplace_id . "</td>";
                                             ?>
@@ -99,14 +100,15 @@ include 'includes/menu.php';
     </div>
     <script type="text/javascript" src="resources/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="resources/js/materialize.min.js"></script>
+    <script type="text/javascript" src="resources/js/pagination.js"></script>
 
     <script type="text/javascript">
         $(".button-collapse").sideNav();
 
         $(".dropdown-button").dropdown();
 
-        $('#deleteBtn').click(function( event ) {
-            if(!confirm("Weet je zeker dat je deze reservering wilt verwijderen?")) {
+        $('.btn').on('click', function( event ) {
+            if(!confirm("Weet je zeker dat je deze gebruiker wilt verwijderen?")) {
                 event.preventDefault();
             }
         });

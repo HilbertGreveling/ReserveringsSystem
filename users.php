@@ -15,7 +15,7 @@ if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
 }
 if(Input::get("username") !== null){
-    $adminpanel->deleteuser(Input::get("username"));
+    $user->delete(Input::get("id"));
 }
 
 ?>
@@ -54,7 +54,7 @@ include 'includes/menu.php';
     <!-- Genereer reserveringlijst voor gebruikers -->
     <div class="container">
         <div class="row">
-            <div class="grey lighten-4 post-index z-depth-2 col s12 m8 offset-m2">
+            <div class="grey lighten-4 post-index z-depth-2 col s12 m10 offset-m1">
                     <div class="input-field col s12">
                          <form class="col s12" method="POST" autocomplete="off" action="">
                                 <i class="mdi-action-search prefix"></i>
@@ -67,7 +67,7 @@ include 'includes/menu.php';
             </div>
         </div>
         <div class="row">
-            <div class="grey lighten-4 post-index z-depth-2 col s12 m8 offset-m2">
+            <div class="grey lighten-4 post-index z-depth-2 col s12 m10 offset-m1">
                 <h5 class="flow-text center" style="text-align:center;">
                     Gebruikers
                     <div class="line-separator red darken-4"></div>
@@ -77,11 +77,11 @@ include 'includes/menu.php';
                     <table class="centered paginated">
                         <thead>
                           <tr>
-                                <th data-field="date" class="center" scope="col">Ov-Nummer</th>
-                                <th data-field="date" class="center" scope="col">Voornaam</th>
-                                <th data-field="date" class="center" scope="col">Achternaam</th>
-                                <th data-field="date" class="center" scope="col">E-mail</th>
-                                <th data-field="time" class="center" >Permissie</th>
+                                <th data-field="ov" class="center" scope="col">Ov-Nummer</th>
+                                <th data-field="firstname" class="center" scope="col">Voornaam</th>
+                                <th data-field="lastname" class="center" scope="col">Achternaam</th>
+                                <th data-field="email" class="center" scope="col">E-mail</th>
+                                <th data-field="permissions" class="center" >Permissie</th>
                                 <th data-field="" class="center"></th>
                           </tr>
                         </thead>
@@ -97,15 +97,15 @@ include 'includes/menu.php';
                                     echo "<td>" . $value->email . "</td>" . PHP_EOL;
                                     echo "<td>" . $value->group . "</td>" . PHP_EOL;
                                     ?>
-                                        <td>
-                                            <form action="" method="post" >
-                                                <input name="username" type="hidden" value="<?php echo $value->username; ?>">
-                                                <button id="deleteBtn" class="btn waves-effect waves-light" type="submit" name="action">
-                                                    <i class="material-icons">delete</i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    <?php
+                                       <td>
+                                           <form action="" method="post" >
+                                               <input name="id" type="hidden" value="<?php echo $value->id; ?>">
+                                               <button class="btn waves-effect waves-light" type="submit" name="action">
+                                                   <i class="material-icons">delete</i>
+                                               </button>
+                                           </form>
+                                       </td>
+                                   <?php
                                     echo "</tr>";
                                 }
                             }
@@ -126,7 +126,7 @@ include 'includes/menu.php';
 
         $(".dropdown-button").dropdown();
 
-        $('#deleteBtn').on('click', function( event ) {
+        $('.btn').on('click', function( event ) {
             if(!confirm("Weet je zeker dat je deze gebruiker wilt verwijderen?")) {
                 event.preventDefault();
             }
