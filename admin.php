@@ -7,13 +7,13 @@ require('core/init.php');
 $user = new User();
 $adminpanel = new Adminpanel();
 $reserve = new Reserve();
+
 if(!$user->hasPermission('admin')) {
     Redirect::to('index.php');
 }
 if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
 }
-
 if(Input::get("id") !== null && is_numeric(Input::get("id"))){
     $reserve->delete(Input::get("id"));
 }
@@ -104,7 +104,7 @@ include 'includes/menu.php';
                                     ?>
                                         <td>
                                             <form action="" method="post" >
-                                                <input id="id" name="id" type="hidden" value="<?php echo $value->id; ?>">
+                                                <input name="id" type="hidden" value="<?php echo $value->id; ?>">
                                                 <button id="deleteBtn" class="btn waves-effect waves-light" type="submit" name="action">
                                                     <i class="material-icons">delete</i>
                                                 </button>

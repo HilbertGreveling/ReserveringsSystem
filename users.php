@@ -7,11 +7,15 @@ require('core/init.php');
 $user = new User();
 $adminpanel = new Adminpanel();
 $reserve = new Reserve();
+
 if(!$user->hasPermission('admin')) {
     Redirect::to('index.php');
 }
 if(!$user->isLoggedIn()){
     Redirect::to( 'login.php');
+}
+if(Input::get("username") !== null){
+    $adminpanel->deleteuser(Input::get("username"));
 }
 
 ?>
@@ -92,7 +96,16 @@ include 'includes/menu.php';
                                     echo "<td>" . $value->lastname . "</td>" . PHP_EOL;
                                     echo "<td>" . $value->email . "</td>" . PHP_EOL;
                                     echo "<td>" . $value->group . "</td>" . PHP_EOL;
-                                    echo '<td><i class="material-icons">delete</i></td>' . PHP_EOL;
+                                    ?>
+                                        <td>
+                                            <form action="" method="post" >
+                                                <input name="username" type="hidden" value="<?php echo $value->username; ?>">
+                                                <button id="deleteBtn" class="btn waves-effect waves-light" type="submit" name="action">
+                                                    <i class="material-icons">delete</i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    <?php
                                     echo "</tr>";
                                 }
                             }
@@ -112,6 +125,12 @@ include 'includes/menu.php';
         $(".button-collapse").sideNav();
 
         $(".dropdown-button").dropdown();
+
+        $('#deleteBtn').on('click', function( event ) {
+            if(!confirm("Weet je zeker dat je deze gebruiker wilt verwijderen?")) {
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
