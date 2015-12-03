@@ -133,8 +133,8 @@ include 'includes/menu.php';
 
         $(".dropdown-button").dropdown();
 
-        $('#deleteBtn').on('click', function( event ) {
-            if(!confirm("Weet je zeker dat je deze reservering wilt verwijderen?")) {
+        $('.btn').on('click', function( event ) {
+            if(!confirm("Weet je zeker dat je deze gebruiker wilt verwijderen?")) {
                 event.preventDefault();
             }
         });

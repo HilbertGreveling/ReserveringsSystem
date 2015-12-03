@@ -108,7 +108,7 @@ include 'includes/menu.php';
         $(".dropdown-button").dropdown();
 
         $('.btn').on('click', function( event ) {
-            if(!confirm("Weet je zeker dat je deze gebruiker wilt verwijderen?")) {
+            if(!confirm("Weet je zeker dat je deze reservering wilt verwijderen?")) {
                 event.preventDefault();
             }
         });

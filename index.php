@@ -88,7 +88,7 @@ include 'includes/menu.php';
     <script type="text/javascript" src="resources/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="resources/js/materialize.min.js"></script>
     <script type="text/javascript" src="resources/js/pagination.js"></script>
-    
+
     <script type="text/javascript">
         $(".button-collapse").sideNav();
 
