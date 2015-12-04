@@ -8,7 +8,7 @@ $('table.paginated').each(function() {
     $table.trigger('repaginate');
     var numRows = $table.find('tbody tr').length;
     var numPages = Math.ceil(numRows / numPerPage);
-    var $pager = $('<ul class="pagination center ">');
+    var $pager = $('<ul class="pagination margin-left-5">');
     for (var page = 0; page < numPages; page++) {
         $('<li class="page-number"></li>').text(page + 1).bind('click', {
             newPage: page

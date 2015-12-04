@@ -22,7 +22,6 @@
       }
     }
 
-
       /**
      * [fetch get all the reservations from the database based on everything after CURDATE]
      */
