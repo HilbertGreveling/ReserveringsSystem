@@ -50,13 +50,14 @@ include 'includes/menu.php';
     <div class="container">
         <div class="row">
             <div class="grey lighten-4 post-index z-depth-2 col s12 m8 offset-m2">
-                <h5 class="flow-text center" style="text-align:center;">
-                    Komende reserveringen
+                <h5 class="center" style="text-align:center;">
+                    <span class="flow-text">Komende reserveringen</span>
                     <div class="line-separator red darken-4"></div>
-                </h5>
 
+                </h5>
+                <p class="center">Druk op de groene knop met de prullenbak om een reservering te verwijderen</p>
                 <div class="row">
-                    <table class="centered paginated">
+                    <table class="centered">
                         <thead>
                           <tr>
                                 <th data-field="date" class="center">Datum</th>
@@ -71,18 +72,17 @@ include 'includes/menu.php';
                                 $reservations = $reserve->fetch($user->data()->id, "upcoming");
                                 if(is_array($reservations)){
                                     foreach ($reservations as $key => $value) {
-                                        $date = date_create($value->date);
                                         $times = DB::getInstance()->get('time', array('time_id', '=', $value->time_id));
                                         $time = $times->results();
                                             echo "<tr>";
-                                            echo "<td>" . date_format($date, 'd/m/Y') . "</td>" ;
+                                            echo "<td>" . $value->date . "</td>" ;
                                             echo "<td>" . $time[0]->start . " - " . $time[0]->end . "</td>" ;
                                             echo "<td>" . $value->classroom . "." .$value->workplace_id . "</td>";
                                             ?>
                                                 <td>
                                                     <form action="" method="post" >
                                                         <input name="id" type="hidden" value="<?php echo $value->id; ?>">
-                                                        <button id="deleteBtn" class="btn waves-effect waves-light" type="submit" name="action">
+                                                        <button id="deleteBtn"  class="btn waves-effect waves-light" type="submit" name="action">
                                                             <i class="material-icons">delete</i>
                                                         </button>
                                                     </form>
@@ -100,14 +100,13 @@ include 'includes/menu.php';
     </div>
     <script type="text/javascript" src="resources/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="resources/js/materialize.min.js"></script>
-    <script type="text/javascript" src="resources/js/pagination.js"></script>
 
     <script type="text/javascript">
         $(".button-collapse").sideNav();
 
         $(".dropdown-button").dropdown();
 
-        $('.btn').on('click', function( event ) {
+        $('.btn').click(function( event ) {
             if(!confirm("Weet je zeker dat je deze reservering wilt verwijderen?")) {
                 event.preventDefault();
             }

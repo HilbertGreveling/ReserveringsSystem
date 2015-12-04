@@ -107,6 +107,11 @@ include 'includes/menu.php';
 
         $(".dropdown-button").dropdown();
 
+        $('.btn').click(function( event ) {
+            if(!confirm("Weet je zeker dat je deze reservering wilt verwijderen?")) {
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
