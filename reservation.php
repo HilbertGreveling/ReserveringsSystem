@@ -42,6 +42,8 @@
                                 'date' => Input::get('date'),
                                 'time_id' => Input::get('time')
                             ));
+
+                            Redirect::to('overview.php');
                         }catch(Exception $e) {
                             die($e->getMessage());
                         }

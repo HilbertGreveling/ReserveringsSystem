@@ -55,7 +55,6 @@ include 'includes/menu.php';
                     <div class="line-separator red darken-4"></div>
 
                 </h5>
-                <p class="center">Druk op de groene knop met de prullenbak om een reservering te verwijderen</p>
                 <div class="row">
                     <table class="centered">
                         <thead>

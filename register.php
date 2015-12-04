@@ -50,7 +50,7 @@
                         'salt' => $salt,
                         'firstname' => Input::get('firstname'),
                         'lastname' => Input::get('lastname'),
-                        'group' => 1
+                        'group' => 2
                         ));
                         Session::flash('home', 'U bent succesvol geregistreerd en u kunt nu inloggen. ');
                         Redirect::to('index.php');
