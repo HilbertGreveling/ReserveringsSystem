@@ -91,7 +91,7 @@ include 'includes/menu.php';
                             if(is_array($userdisplay)){
                                 foreach ($userdisplay as $key => $value) {
                                     echo "<tr>" . PHP_EOL;
-                                    echo "<td>" . $value->username . "</td>" . PHP_EOL;
+                                    echo "<td>" . $value->id . "</td>" . PHP_EOL;
                                     echo "<td>" . $value->firstname . "</td>" . PHP_EOL;
                                     echo "<td>" . $value->lastname . "</td>" . PHP_EOL;
                                     echo "<td>" . $value->email . "</td>" . PHP_EOL;

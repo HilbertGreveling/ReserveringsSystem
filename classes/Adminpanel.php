@@ -45,7 +45,12 @@
             return false;
         }
 
-        if($this->_db->query("DELETE FROM users WHERE username = ? ", array($username))){
+        if($this->_db->query("DELETE users,reservations
+        FROM users
+        LEFT JOIN reservations
+        ON (users.id = reservations.ov)
+        WHERE users.id= ?"))
+        {
             return "De gebruiker is succesvol verwijderd.";
         }
     }
