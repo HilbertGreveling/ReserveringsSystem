@@ -119,7 +119,7 @@
                                 <div class="input-field col s12">
                                     <i class="mdi-action-account-circle prefix"></i>
                                     <input id="username" name="username" type="text" class="validate">
-                                    <label for="username">Username</label>
+                                    <label for="username">Gebruikersnaam</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="mdi-action-account-circle prefix"></i>

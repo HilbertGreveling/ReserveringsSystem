@@ -60,7 +60,7 @@
                                 <div class="input-field col s12">
                                     <i class="mdi-action-account-circle prefix"></i>
                                     <input id="username" name="username" type="text" class="validate">
-                                    <label for="username">Ov Nummer</label>
+                                    <label for="username">Ov Nummer/Gebruikersnaam</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <i class="mdi-action-https prefix"></i>

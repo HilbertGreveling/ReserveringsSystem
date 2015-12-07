@@ -95,7 +95,7 @@ include 'includes/menu.php';
                                     $times = DB::getInstance()->get('time', array('time_id', '=', $value->time_id));
                                     $time = $times->results();
                                     echo "<tr>" . PHP_EOL;
-                                    echo "<td>" . $value->id . "</td>" . PHP_EOL;
+                                    echo "<td>" . $user[0]->id . "</td>" . PHP_EOL;
                                     echo "<td>" . $user[0]->firstname . "</td>" . PHP_EOL;
                                     echo "<td>" . $user[0]->lastname . "</td>" . PHP_EOL;
                                     echo "<td>" . $value->date . "</td>" . PHP_EOL;
