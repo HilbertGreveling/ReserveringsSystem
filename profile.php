@@ -21,7 +21,9 @@ if(Input::exists()) {
             try {
                 $user->update(array(
                     'firstname' => Input::get('firstname'),
-                    'lastname' => Input::get('lastname')
+                    'lastname' => Input::get('lastname'),
+                    'email' => Input::get('email')
+
                 ));
                     Redirect::to('profile.php');
             }catch(Exception $e) {
@@ -73,8 +75,8 @@ include 'includes/menu.php';
                                     </div>
                                     <div class="input-field col s12">
                                         <i class="mdi-content-mail prefix"></i>
-                                        <input disabled value="<?php echo escape($user->data()->email); ?>" id="disabled" type="text" class="validate">
-                                        <label for="email">Email</label>
+                                        <input value="<?php echo escape($user->data()->email); ?>" id="email" name="email" type="text" class="validate">
+                                        <label for="email">Voornaam </label>
                                     </div>
                                     <div class="input-field col s12">
                                          <i class="mdi-action-account-circle prefix"></i>
